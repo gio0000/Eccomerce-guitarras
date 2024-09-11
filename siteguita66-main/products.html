@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produtos - Loja de Instrumentos</title>
+    <style>
+        /* Reseta algumas configurações padrão do navegador */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        header {
+            background: #333;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        header h1 {
+            margin-bottom: 0.5rem;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 1rem;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            padding: 1rem;
+        }
+
+        h2 {
+            margin-bottom: 1rem;
+        }
+
+        .product-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .card {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            width: 250px; /* Define uma largura fixa para os cartões */
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .card img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .card-details {
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .card-details h2 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-details span {
+            display: block;
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-details button {
+            background: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .card-details button:hover {
+            background: #555;
+        }
+
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Loja de Guitarras</h1>
+        <nav>
+            <a href="index.html">Início</a>
+            <a href="products.html">Produtos</a>
+            <a href="contact.html">Contato</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Todos os Produtos</h2>
+
+        
+        <div class="product-list">
+            <!-- Card de produto -->
+            <div class="card">
+                <img src="guitarra_fender_011_3040_am_professional_stratocaster_shawbucker_hss_rw_709_candy_apple_red_5005_1_6a04abfd9aaf3566f2d47a8d13e286b4.webp" alt="Guitarra Fender Stratocaster HSS Candy Apple Red">
+                <div class="card-details">
+                    <h2>Guitarra Stratocaster</h2>
+                    <span>R$ 875,99</span>
+                    <button>Saiba mais</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="guitarra_fender_american_performer_stratocaster_satin_lake_placid_blue_739_1_61bac7a808012749c5321514f57adf09_20230816083714.webp" alt="Guitarra Fender American Performer Stratocaster Satin Lake Placid Blue">
+                <div class="card-details">
+                    <h2>Guitarra Stratocaster</h2>
+                    <span>R$ 1012,99</span>
+                    <button>Saiba mais</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="guita3.webp" alt="Guitarra Les Paul">
+                <div class="card-details">
+                    <h2>Guitarra Stratocaster</h2>
+                    <span>R$ 925,99</span>
+                    <button>Saiba mais</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="Guitarra-Stratocaster-HSS-JV-Modified-Dos-Anos-50-MN-2TS---Fender.png" alt="Guitarra Stratocaster">
+                <div class="card-details">
+                    <h2>Guitarra Stratocaster</h2>
+                    <span>R$ 652,99</span>
+                    <button>Saiba mais</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="guita4.webp" alt="Guitarra SG">
+                <div class="card-details">
+                    <h2>Guitarra Stratocaster</h2>
+                    <span>R$ 999,99</span>
+                    <button>Saiba mais</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="guita1.png" alt="Guitarra SG">
+                <div class="card-details">
+                    <h2>Guitarra Ibanez</h2>
+                    <span>R$ 956,99</span>
+                    <button>Saiba mais</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="guita2.jpg" alt="Guitarra SG">
+                <div class="card-details">
+                    <h2>Guitarra Ibanez</h2>
+                    <span>R$ 978,99</span>
+                    <button>Saiba mais</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="guita5.webp" alt="Guitarra SG">
+                <div class="card-details">
+                    <h2>Guitarra Ibanez</h2>
+                    <span>R$ 856,99</span>
+                    <button>Saiba mais</button>
+                </div>
+            </div>
+
+
+            <div class="card">
+                <img src="guita7.jpg" alt="Guitarra SG">
+                <div class="card-details">
+                    <h2>Guitarra Ibanez</h2>
+                    <span>R$ 985,99</span>
+                    <button>Saiba mais</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="guita6.jpg" alt="Guitarra SG">
+                <div class="card-details">
+                    <h2>Guitarra Ibanez</h2>
+                    <span>R$ 956,99</span>
+                    <button>Saiba mais</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="guita8.webp" alt="Guitarra SG">
+                <div class="card-details">
+                    <h2>Guitarra Ibanez</h2>
+                    <span>R$ 956,99</span>
+                    <button>Saiba mais</button>
+                </div>
+            </div>
+
+
+
+
+
+            <!-- Adicione mais cartões de produto aqui se necessário -->
+        </div>
+    </main>
+
+    
+
+    <script src="script.js"></script>
+</body>
+</html>
