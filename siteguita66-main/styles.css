@@ -328,21 +328,24 @@ footer {
 }
 
 /* Seção da Imagem em Tela Cheia */
+
+
 .full-width-image {
-    position: relative;
     width: 100%;
-    height: auto;
-    overflow: hidden;
     margin: 0;
     padding: 0;
+    overflow: hidden;
 }
 
 .full-width-image img {
-    display: block;
     width: 100%;
-    height: auto; /* Mantém a proporção da imagem */
-    object-fit: cover; /* Faz a imagem cobrir o contêiner */
+    height: auto;
+    display: block;
 }
+
+
+
+
 
 
 
