@@ -167,7 +167,7 @@ input#radio6:checked ~ .controls label[for="radio6"] {
     padding: 2rem;
     text-align: center;
     color: #fff;
-    background: #8e969e; /* Fundo cinza azulado */
+    background: #000000; /* Fundo cinza azulado */
     border-radius: 8px;
     margin-bottom: 2rem;
 }
@@ -326,3 +326,23 @@ footer {
     border-top: 1px solid #444;
     padding-top: 1rem;
 }
+
+/* Seção da Imagem em Tela Cheia */
+.full-width-image {
+    position: relative;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+.full-width-image img {
+    display: block;
+    width: 100%;
+    height: auto; /* Mantém a proporção da imagem */
+    object-fit: cover; /* Faz a imagem cobrir o contêiner */
+}
+
+
+
