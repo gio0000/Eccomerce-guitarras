@@ -44,19 +44,50 @@ function resizeImages(selector, width, height) {
 // Adiciona um listener para carregar os produtos quando o DOM estiver completamente carregado
 document.addEventListener('DOMContentLoaded', () => {
     displayProducts();
+    startCarousel(); // Inicia o carrossel automático
 });
 
-// Funções para o carrossel de imagens
-let currentIndex = 0;
-
+// Função para mover o slide
 function moveSlide(step) {
-    const slides = document.querySelectorAll('.carousel-images img');
+    const slides = document.querySelectorAll('.slider-content .slides img');
     const totalSlides = slides.length;
+    const sliderContainer = document.querySelector('.slider-content .slides');
+    if (!sliderContainer) return;
+
     currentIndex = (currentIndex + step + totalSlides) % totalSlides;
     const offset = -currentIndex * 100;
-    document.querySelector('.carousel-images').style.transform = `translateX(${offset}%)`;
+    sliderContainer.style.transform = `translateX(${offset}%)`;
 }
 
 // Adiciona listeners para as setas do carrossel
 document.querySelector('.carousel-prev').addEventListener('click', () => moveSlide(-1));
 document.querySelector('.carousel-next').addEventListener('click', () => moveSlide(1));
+
+// Função para iniciar o carrossel automático
+function startCarousel() {
+    const radios = document.querySelectorAll('#carousel input[type="radio"]');
+    if (radios.length === 0) return; // Verifica se há radios para o carrossel
+
+    let currentIndex = 0;
+    const totalSlides = radios.length;
+
+    function moveToNextSlide() {
+        radios[currentIndex].checked = false;
+        currentIndex = (currentIndex + 1) % totalSlides;
+        radios[currentIndex].checked = true;
+        moveSlide(1); // Mover o slide para a próxima posição
+    }
+
+    // Muda para o próximo slide a cada 3 segundos (3000 milissegundos)
+    setInterval(moveToNextSlide, 3000);
+}
+
+// Função para alterar a cor do cabeçalho ao rolar
+document.addEventListener('scroll', () => {
+    const header = document.querySelector('header');
+    if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+    } else {
+        header.classList.remove('scrolled');
+    }
+});
