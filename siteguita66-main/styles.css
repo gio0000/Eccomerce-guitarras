@@ -409,4 +409,3 @@ nav a:active {
 .slider-content input[type="radio"]:nth-of-type(6):checked ~ .slide-box .slides {
     transform: translateX(-500%);
 }
-
