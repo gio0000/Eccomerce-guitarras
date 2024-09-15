@@ -15,11 +15,13 @@
         body {
             font-family: Arial, sans-serif;
             line-height: 1.6;
+            background: #000000; /* Fundo preto */
+            color: #ffffff; /* Cor do texto padrão branca */
         }
 
         header {
-            background: #333;
-            color: #fff;
+            background: #000000;
+            color: #ffffff;
             padding: 1rem;
             text-align: center;
         }
@@ -29,7 +31,7 @@
         }
 
         nav a {
-            color: #fff;
+            color: #ffffff;
             text-decoration: none;
             margin: 0 1rem;
         }
@@ -44,6 +46,7 @@
 
         h2 {
             margin-bottom: 1rem;
+            color: #ffffff; /* Cor do título principal */
         }
 
         .product-list {
@@ -54,12 +57,12 @@
         }
 
         .card {
-            background: #f9f9f9;
-            border: 1px solid #ddd;
+            background: #ffffff; /* Fundo escuro para os cartões */
+            border: 1px solid #000000;
             border-radius: 8px;
             width: 250px; /* Define uma largura fixa para os cartões */
             overflow: hidden;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Sombra mais escura para contraste */
         }
 
         .card img {
@@ -76,12 +79,13 @@
         .card-details h2 {
             font-size: 1.2rem;
             margin-bottom: 0.5rem;
+            color: #000000; /* Cor do título do cartão */
         }
 
         .card-details span {
             display: block;
             font-size: 1.1rem;
-            color: #333;
+            color: #000000; /* Cor do preço */
             margin-bottom: 0.5rem;
         }
 
@@ -111,19 +115,37 @@
     </style>
 </head>
 <body>
-    <header>
-        <h1>Loja de Guitarras</h1>
+    <header data-aos="fade-down">
+        <h1>Power Chords</h1>
         <nav>
-            <a href="index.html">Início</a>
-            <a href="products.html">Produtos</a>
-            <a href="contact.html">Contato</a>
+            <a href="index.html" data-aos="fade-right">Início</a>
+            <a href="products.html" data-aos="fade-right">Produtos</a>
+            <a href="contact.html" data-aos="fade-right">Contato</a>
+            <a href="account.html" class="nav-button" data-aos="fade-left">Minha Conta</a>
+            <a href="signup.html" class="nav-button" data-aos="fade-left">Criar Conta</a>
+            <a href="cart.html" class="nav-button" data-aos="fade-left">
+                <img src="icons8-carrinho-de-compras-48.png" alt="Carrinho" class="nav-icon"> <!-- Ícone do carrinho -->
+            </a>
         </nav>
     </header>
 
     <main>
         <h2>Todos os Produtos</h2>
 
-        
+        <!-- Menu de seleção de marcas -->
+        <form id="filterForm">
+            <label for="brand">Selecione a Marca:</label>
+            <select id="brand" name="brand">
+                <option value="">Todas</option>
+                <option value="stratocaster">Stratocaster</option>
+                <option value="telecaster">Telecaster</option>
+                <option value="les_paul">Les Paul</option>
+                <option value="ibanez">Ibanez</option>
+
+                
+            </select>
+            <button type="submit">Filtrar</button>
+        </form>
         <div class="product-list">
             <!-- Card de produto -->
             <div class="card">
@@ -198,7 +220,6 @@
                 </div>
             </div>
 
-
             <div class="card">
                 <img src="guita7.jpg" alt="Guitarra SG">
                 <div class="card-details">
@@ -225,17 +246,11 @@
                     <button>Saiba mais</button>
                 </div>
             </div>
-
-
-
-
-
-            <!-- Adicione mais cartões de produto aqui se necessário -->
         </div>
     </main>
 
-    
+   
 
-    <script src="script.js"></script>
+    </script>
 </body>
 </html>
