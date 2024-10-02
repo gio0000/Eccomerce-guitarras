@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja de Guitarras</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"> 
+</head>
+<body>
+    <header data-aos="fade-down">
+        <h1>Power Chords</h1>
+        <nav>
+            <a href="{{ url_for('index') }}" data-aos="fade-right">Início</a>
+            <a href="{{ url_for('products') }}" data-aos="fade-right">Produtos</a>
+            <a href="{{ url_for('contact') }}" data-aos="fade-right">Contato</a>
+            <a href="{{ url_for('minhaconta') }}" class="nav-button" data-aos="fade-left">Minha Conta</a>
+            <a href="{{ url_for('criarconta') }}" class="nav-button" data-aos="fade-left">Criar Conta</a>
+            <a href="{{ url_for('guitarforme') }}" class="nav-button" data-aos="fade-left">Sua Guitarra ideal</a>
+
+
+            
+            
+        </nav>
+    </header>
+
+     <!-- Seção para Carrossel de Imagens -->
+    <section id="carousel" class="slider" data-aos="fade-up">
+        <div class="slider-content">
+            <input type="radio" name="btn-radio" id="radio1" checked>
+            <input type="radio" name="btn-radio" id="radio2">
+            <input type="radio" name="btn-radio" id="radio3">
+            <input type="radio" name="btn-radio" id="radio4">
+            <input type="radio" name="btn-radio" id="radio5">
+            <input type="radio" name="btn-radio" id="radio6">
+
+            <div class="slide-box">
+                <div class="slides">
+                    <img src="{{ url_for('static', filename='img/poweazul.png') }}" alt="SLIDE1">
+                    <img src="{{ url_for('static', filename='img/power chord (2).png') }}" alt="SLIDE3">
+                    <img src="{{ url_for('static', filename='img/power chord (3).png') }}" alt="SLIDE5">
+                    <img src="{{ url_for('static', filename='img/suamelhorescolha (1).png') }}" alt="SLIDE6">
+                    <img src="{{ url_for('static', filename='img/maneira.png') }}" alt="SLIDE6">
+                    <img src="{{ url_for('static', filename='img/fases.png') }}" alt="SLIDE6">
+                    
+                </div>
+            </div>
+        </div>
+
+            <div class="controls">
+                <label for="radio1" class="control-dot"></label>
+                <label for="radio2" class="control-dot"></label>
+                <label for="radio3" class="control-dot"></label>
+                <label for="radio4" class="control-dot"></label>
+                <label for="radio5" class="control-dot"></label>
+                <label for="radio6" class="control-dot"></label>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Produtos em Destaque -->
+    <section class="featured-products" data-aos="fade-up">
+        <h2>Conheça os modelos mais famosos de guitarras e suas origens</h2>
+        <div class="product-list">
+            <div class="product" data-aos="fade-up">
+                <img src="{{ url_for('static', filename='img/telecastervirada.jpg') }}"alt="Telecaster">
+                <p>Telecaster</p>
+                <p> Lançada em 1950, a Telecaster foi uma das primeiras guitarras elétricas de corpo sólido. Criada por Leo Fender, seu design simples e durável, além de seu som brilhante e cortante, foram pensados para atender à demanda de músicos de country e rock and roll que precisavam de uma guitarra confiável e com boa sonoridade para performances ao vivo.
+
+                </p>
+            </div>
+            <div class="product" data-aos="fade-up" data-aos-delay="100">
+                <img src="{{ url_for('static', filename='img/lespaulo.jpg') }}"alt="Les Paul">
+                <p>Les Paul</p>
+                <p>Desenvolvida no final dos anos 1950, a Les Paul foi fruto de uma colaboração entre o luthier Les Paul e a Gibson. Seu design com corpo sólido, captadores humbucker e uma construção mais pesada foi uma resposta ao desejo de uma guitarra que produzisse um som mais robusto e sustain prolongado, adequado para o rock e blues.</p>
+            </div>
+            <div class="product" data-aos="fade-up" data-aos-delay="200">
+                <img src="{{ url_for('static', filename='img/strato.jpg') }}"alt="Stratocaster">
+                <p>Stratocaster</p>
+                <p>Introduzida em 1954, a Stratocaster também foi criada por Leo Fender com o objetivo de oferecer uma guitarra mais ergonômica e versátil. Seu design contornado e os três captadores de single-coil proporcionavam uma gama ampla de timbres, tornando-a popular em vários estilos, incluindo rock, blues e surf.</p>
+            </div>
+            <div class="product" data-aos="fade-up" data-aos-delay="300">
+                <img src="{{ url_for('static', filename='img/SG.png') }}"alt="SG">
+                <p>SG</p>
+                <p>Lançada em 1961 como uma evolução da Les Paul, a SG (Solid Guitar) apresentava um corpo mais leve e um design mais agressivo. Foi criada para atender à demanda por uma guitarra que fosse mais fácil de tocar e mais acessível para músicos que desejavam uma sonoridade poderosa e uma estética mais ousada.</p>
+            </div>
+            <div class="product" data-aos="fade-up" data-aos-delay="400">
+                <img src="{{ url_for('static', filename='img/explorer.png') }}"alt="Explorer">
+                <p>Explorer</p>
+                <p> Introduzida em 1958, a Explorer tinha um design inovador e futurista. Seu corpo angular e sua construção foram feitas para se destacar visualmente e oferecer uma excelente ergonomia e balanceamento. O modelo foi pensado para músicos que buscavam um visual distinto e uma sonoridade pesada, apropriada para o hard rock e heavy metal.</p>
+            </div>
+            <div class="product" data-aos="fade-up" data-aos-delay="500">
+                <img src="{{ url_for('static', filename='img/V.png') }}"alt="Flying V">
+                <p>Flying V</p>
+                <p>Também lançada em 1958, a Flying V possui um design radical com uma forma em "V". Assim como a Explorer, foi projetada para chamar atenção no palco e fornecer um timbre poderoso e sustain longo. Seu design arrojado visava atrair guitarristas interessados em um visual futurista e um som de alto impacto.</p>
+            </div>
+            <div class="product" data-aos="fade-up" data-aos-delay="600">
+                <img src="{{ url_for('static', filename='img/Warlock.jpeg') }}"alt="Warlock">
+                <p>Warlock</p>
+                <p> Lançada nos anos 1980, a Warlock é conhecida por seu formato agressivo e visual único. Foi criada para atender a uma nova geração de guitarristas de heavy metal e hard rock que buscavam uma guitarra com uma aparência mais ousada e uma construção que favorecesse o estilo de tocar rápido e técnico.</p>
+            </div>
+        </div>
+    </section>
+
+     <!-- Seção de Imagem em Tela Cheia -->
+     <section class="full-width-image" data-aos="fade-up">
+        <img src="{{ url_for('static', filename='img/EMBAIXOsg2.png') }}"
+    </section>
+    
+    <section class="full-width-image">
+        <img src="{{ url_for('static', filename='img/EMBAIXOlespaul (1).png') }}"
+    </section>
+    
+    <section class="full-width-image">
+        <img src="{{ url_for('static', filename='img/EMBAIXOv.png') }}" alt="Faixa de Guitarras">
+    </section>
+    
+    <section class="full-width-image">
+        <img src="{{ url_for('static', filename='img/EMBAIXOstrato (1).png') }}" alt="Faixa de Guitarras">
+    </section>
+    
+    <section class="full-width-image">
+        <img src="{{ url_for('static', filename='img/EMBAIXOsgg.png') }}" alt="Faixa de Guitarras">
+    </section>
+    
+    
+    <section class="full-width-image">
+        <img src="{{ url_for('static', filename='img/EMBAIXOwar.png') }}" alt="Faixa de Guitarras">
+    </section>
+
+    <!-- Rodapé -->
+    <footer data-aos="fade-up">
+        <div class="footer-container">
+            <div class="footer-info">
+                <h3>Sobre Nós</h3>
+                <p>Descubra sua Paixão pela Música!
+
+                    Na Power Chords, acreditamos que cada guitarra conta uma história e cada acorde tem o poder de tocar o coração. Seja você um músico experiente ou um iniciante curioso, temos uma ampla seleção de guitarras que atendem a todos os estilos e níveis de habilidade.</p>
+            </div>
+            <div class="footer-contact">
+                <h3>Contato</h3>
+                <p>Email: <a href="mailto:contato@notasdoces.com">powerchords@gmail.com</a></p>
+                <p>Telefone: (54) 98765-4321</p>
+                <p>Endereço: Rua das Notas, 123 - Rio Grande do Sul, RS</p>
+            </div>
+            <div class="footer-social">
+                <h3>Redes Sociais</h3>
+                <a href="https://www.instagram.com/notasdoces.com" target="_blank" class="social-icon">
+                    <img src="{{ url_for('static', filename='img/icons8-instagram-velho-50.png') }}"
+                </a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Loja de Guitarras. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script> <!-- Adicione o JS do AOS -->
+    <script>
+        AOS.init(); // Inicializa o AOS
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
