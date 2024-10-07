@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 191, 255, 0.5);
+            padding: 30px;
+            width: 300px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        h2 {
+            color: #1E90FF;
+        }
+
+        .alert {
+            margin-top: 20px;
+            color: #ff0000;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #1E90FF;
+            border-radius: 5px;
+            background: #222;
+            color: #fff;
+        }
+
+        input:focus {
+            border-color: #00BFFF;
+            box-shadow: 0 0 5px rgba(0, 191, 255, 0.5);
+        }
+
+        .btn {
+            background-color: #1E90FF;
+            border: none;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #00BFFF;
+        }
+
+        p {
+            margin-top: 20px;
+        }
+
+        .notes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        @keyframes note-animation {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100vh); }
+        }
+
+        .note {
+            position: absolute;
+            top: 100vh;
+            font-size: 24px;
+            animation: note-animation 5s linear infinite;
+            color: #00BFFF; /* Azul neon */
+        }
+
+        .note:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .note:nth-child(2) { left: 30%; animation-delay: 1s; }
+        .note:nth-child(3) { left: 50%; animation-delay: 2s; }
+        .note:nth-child(4) { left: 70%; animation-delay: 3s; }
+        .note:nth-child(5) { left: 90%; animation-delay: 4s; }
+    </style>
+</head>
+<body>
+    <div class="notes">
+        <div class="note">🎵</div>
+        <div class="note">🎶</div>
+        <div class="note">🎵</div>
+        <div class="note">🎶</div>
+        <div class="note">🎵</div>
+    </div>
+    <div class="container">
+        <h2>Login</h2>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="alert">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        <form action="{{ url_for('login') }}" method="post">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="senha">Senha:</label>
+                <input type="password" id="senha" name="senha" required>
+            </div>
+            <button type="submit" class="btn">Entrar</button>
+        </form>
+        <p>Não tem uma conta? <a href="{{ url_for('criarconta') }}">Crie uma aqui</a>.</p>
+    </div>
+</body>
+</html>

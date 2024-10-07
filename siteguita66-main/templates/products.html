@@ -242,7 +242,7 @@
             <a href="{{ url_for('index') }}">Início</a>
             <a href="{{ url_for('products') }}">Produtos</a>
             <a href="{{ url_for('contact') }}">Contato</a>
-            <a href="{{ url_for('minhaconta') }}" class="nav-button">Minha Conta</a>
+            <a href="{{ url_for('login') }}" class="nav-button">Minha Conta</a>
             <a href="{{ url_for('criarconta') }}" class="nav-button">Criar Conta</a>
             <a href="cart.html" class="nav-button">
                 <img src="{{ url_for('static', filename='img/carrinhodecompras.png') }}" alt="Carrinho" class="icon" />
@@ -615,45 +615,54 @@
                          
                 
             
-        
         <!-- Modal -->
-        <div class="modal" id="productModal">
-            <div class="modal-content">
-                <span class="close" onclick="closeModal()">&times;</span>
-                <div class="image-section">
-                    <img id="modalImage" src="" alt="Produto">
-                </div>
-                <div class="details-section">
-                    <h1 id="modalTitle">Título do Produto</h1>
-                    <p class="price" id="modalPrice">Preço: </p>
-                    <p id="modalDescription">Descrição: </p>
-                    <button>Adicionar ao Carrinho</button>
-                    <button class="buy-button">Comprar Agora</button>
-                </div>
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div class="image-section">
+                <img id="modalImage" src="" alt="Produto" style="width: 100%; border-radius: 5px;">
+            </div>
+            <div class="details-section">
+                <h1 id="modalTitle">Título do Produto</h1>
+                <p class="price" id="modalPrice">Preço: </p>
+                <p id="modalDescription">Descrição: </p>
+                <button id="add-to-cart">Adicionar ao Carrinho</button>
+                <button class="buy-button">Comprar Agora</button>
             </div>
         </div>
+    </div>
 
-        <script>
-            function openModal(title, imageUrl, price, description) {
-    document.getElementById('modalTitle').innerText = title;
-    document.getElementById('modalImage').src = imageUrl;
-    document.getElementById('modalPrice').innerText = 'Preço: ' + price;
-    document.getElementById('modalDescription').innerHTML = description; // Usar innerHTML para suportar <br>
-    document.getElementById('productModal').style.display = 'block';
-}
+    <script>
+        let cart = []; // Array para armazenar os itens do carrinho
 
-function closeModal() {
-    document.getElementById('productModal').style.display = 'none';
-}
+        function openModal(title, imageUrl, price, description) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalImage').src = imageUrl;
+            document.getElementById('modalPrice').innerText = 'Preço: ' + price;
+            document.getElementById('modalDescription').innerHTML = description; 
+            document.getElementById('productModal').style.display = 'block';
+        }
 
-window.onclick = function(event) {
-    const modal = document.getElementById('productModal');
-    if (event.target === modal) {
-        closeModal();
-    }
-};
+        function closeModal() {
+            document.getElementById('productModal').style.display = 'none';
+        }
 
-        </script>
-    </main>
+        window.onclick = function(event) {
+            const modal = document.getElementById('productModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
+
+        document.getElementById('add-to-cart').addEventListener('click', function() {
+            const title = document.getElementById('modalTitle').innerText;
+            const priceText = document.getElementById('modalPrice').innerText;
+            const price = parseFloat(priceText.replace('Preço: ', '').replace(',', '.'));
+
+            cart.push({ title: title, price: price });
+            alert(`${title} foi adicionado ao carrinho!`);
+            console.log(cart); // Para verificar o conteúdo do carrinho
+        });
+    </script>
 </body>
 </html>

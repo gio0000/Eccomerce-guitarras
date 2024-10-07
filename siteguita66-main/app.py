@@ -10,7 +10,7 @@ app.secret_key = 'projeto_giordana_secreto_web'
 db = mysql.connector.connect(
     host="localhost",
     user="root",
-    password="123456",
+    password="giordana",
     database="eccomerce_db"  # Corrigido o nome do banco de dados
 )
 
@@ -93,4 +93,7 @@ def logout():
     return redirect(url_for('index'))
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True)  
+
+
+    
