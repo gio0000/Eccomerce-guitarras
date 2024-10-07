@@ -10,13 +10,16 @@ app.secret_key = 'projeto_giordana_secreto_web'
 db = mysql.connector.connect(
     host="localhost",
     user="root",
-    password="giordana",
+    password="123456",
     database="eccomerce_db"  # Corrigido o nome do banco de dados
 )
 
+def get_usuario():
+    return session.get('usuario_nome', 'Visitante')
+
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html', usuario = get_usuario())
 
 @app.route('/criarconta')
 def criarconta():
@@ -88,7 +91,8 @@ def login():
 
 @app.route('/logout')
 def logout():
-    session.pop('usuario_id', None)  # Remove o usuário da sessão
+    session.pop('usuario_id', None)
+    session.pop('usuario_nome', None)  # Remove o nome de usuário da sessão
     flash('Você foi desconectado.', 'success')
     return redirect(url_for('index'))
 
