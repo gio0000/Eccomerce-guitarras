@@ -267,49 +267,21 @@
             <button type="submit">Filtrar</button>
         </form>
 
-        <div class="card-container">
-            {% for produto in produtos %}
-                <div class="card" onclick="openModal('{{ produto.name }}', '{{ url_for('static', filename='uploads/' + produto.imagem) }}', 'R$ {{ produto.preco }}', '{{ produto.descricao|replace('\n', '<br>') }}')">
-                    <img src="{{ url_for('static', filename='uploads/' + produto.imagem) }}" alt="{{ produto.name }}">
-                    <div class="card-details">
-                        <h2>{{ produto.nome }}</h2>
-                        <span>R$ {{ produto.preco }}</span>
-                        <span>{{ produto.descricao }}</span>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    </main>
+        
 
     <!-- Modal -->
-    <div class="modal" id="productModal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">×</span>
-            <div class="image-section">
-                <img id="modalImage" src="" alt="Produto">
+    <div class="card-container">
+        {% for produto in produtos %}
+            <div class="card" onclick="window.location='{{ url_for('produto', produto_id=produto.id) }}'">
+                <img src="{{ url_for('static', filename='uploads/' + produto.imagem) }}" alt="{{ produto.nome }}">
+                <div class="card-details">
+                    <h2>{{ produto.nome }}</h2>
+                    <span>R$ {{ produto.preco }}</span>
+                </div>
             </div>
-            <div class="details-section">
-                <h1 id="modalTitle">Título do Produto</h1>
-                <p class="price" id="modalPrice">Preço: </p>
-                <p id="modalDescription">Descrição: </p>
-                <button id="add-to-cart">Adicionar ao Carrinho</button>
-                <button class="buy-button" onclick="buyNow()">Comprar Agora</button>
-            </div>
-        </div>
+        {% endfor %}
     </div>
-
-    <script>
-        function openModal(title, imageUrl, price, description) {
-            document.getElementById('modalTitle').innerText = title;
-            document.getElementById('modalImage').src = imageUrl;
-            document.getElementById('modalPrice').innerText = 'Preço: ' + price;
-            document.getElementById('modalDescription').innerHTML = description; 
-            document.getElementById('productModal').style.display = 'block';
-        }
-
-        function closeModal() {
-            document.getElementById('productModal').style.display = 'none';
-        }
-    </script>
+    
+   
 </body>
 </html>

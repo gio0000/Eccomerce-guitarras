@@ -145,6 +145,27 @@ def minhaconta():
 def carrinho():
     return render_template('carrinho.html')
 
+@app.route('/produto/<int:produto_id>', methods=['GET'])
+def produto(produto_id):
+    try:
+        db = conexao()
+        cursor = db.cursor(dictionary=True)
+        cursor.execute("SELECT id, nome, descricao, descricao_detalhada, preco, imagem FROM produtos WHERE id = %s", (produto_id,))
+        produto = cursor.fetchone()
+
+        if not produto:
+            return "Produto não encontrado", 404
+
+        # Formatar o preço como string com duas casas decimais
+        produto['preco'] = "{:.2f}".format(float(produto['preco']))
+
+    finally:
+        cursor.close()
+        db.close()
+
+    return render_template('produto.html', produto=produto)
+
+
 import os
 
 @app.route('/add_product', methods=['POST'])

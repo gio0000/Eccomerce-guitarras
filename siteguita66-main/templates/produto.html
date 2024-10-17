@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ produto.nome }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .produto-container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #fff;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .produto {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .imagem {
+            width: 895px;
+            height: 895px;
+            overflow: hidden;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-right: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f9f9f9;
+        }
+
+        .imagem img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .info {
+            flex: 1;
+            padding: 20px;
+            background-color: #fff;
+        }
+
+        .price {
+            font-size: 24px;
+            color: #f44336;
+        }
+
+        .description, .descricao_detalhada {
+            margin: 10px 0;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin-right: 10px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #d32f2f;
+        }
+
+        .buy-button {
+            background-color: #4CAF50;
+        }
+
+        .buy-button:hover {
+            background-color: #45a049;
+        }
+
+        .especificacoes {
+            margin-top: 20px;
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .especificacoes h3 {
+            margin-top: 0;
+        }
+
+        .especificacoes ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .especificacoes ul li {
+            margin: 5px 0;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="produto-container">
+        <h1>{{ produto.nome }}</h1>
+        <div class="produto">
+            <div class="imagem">
+                <img src="{{ url_for('static', filename='uploads/' + produto.imagem) }}" alt="{{ produto.nome }}">
+            </div>
+            <div class="info">
+                <p class="price">Preço: R$ {{ produto.preco }}</p>
+                <p class="description">{{ produto.descricao }}</p>
+                <p class="descricao_detalhada">{{ produto.descricao_detalhada }}</p>
+                
+                <button id="add-to-cart">Adicionar ao Carrinho</button>
+                <button class="buy-button" onclick="buyNow()">Comprar Agora</button>
+                
+                <h3>Formas de Pagamento</h3>
+                <p>Aceitamos cartões de crédito, débito e PayPal.</p>
+
+
+    <script>
+        function buyNow() {
+            // Lógica para comprar agora
+            alert("Compra realizada com sucesso!");
+        }
+    </script>
+</body>
+</html>
