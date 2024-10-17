@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho de Compras</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        #cart { margin-top: 20px; }
+        .empty { color: gray; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); }
+        .modal-content { background-color: #fff; margin: 15% auto; padding: 20px; border: 1px solid #888; width: 80%; }
+        .close { cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <h1>Carrinho de Compras</h1>
+    <div id="cart">
+        <p id="cart-message" class="empty">O carrinho está vazio.</p>
+        <ul id="cart-items"></ul>
+        <button id="clear-cart" style="display:none;">Limpar Carrinho</button>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">×</span>
+            <div class="image-section">
+                <img id="modalImage" src="" alt="Produto" style="width: 100%; border-radius: 5px;">
+            </div>
+            <div class="details-section">
+                <h1 id="modalTitle">Título do Produto</h1>
+                <p class="price" id="modalPrice">Preço: </p>
+                <p id="modalDescription">Descrição: </p>
+                <button id="add-to-cart" onclick="addToCartFromModal()">Adicionar ao Carrinho</button>
+                <button class="buy-button" onclick="buyNow()">Comprar Agora</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/carrinho.js') }}"></script>
+</body>
+</html>

@@ -13,8 +13,10 @@
         <h1>Power Chords</h1>
         <nav>
             <a href="{{ url_for('index') }}" data-aos="fade-right">Início</a>
-            <a href="{{ url_for('products') }}" data-aos="fade-right">Produtos</a>
+            <a href="{{ url_for('products') }}" data-aos="fade-right">Loja</a>
             <a href="{{ url_for('contact') }}" data-aos="fade-right">Contato</a>
+    
+
             
             {% if usuario != 'Visitante' %}
                 <h1>Bem-vindo, {{ usuario }}!</h1>
@@ -24,7 +26,9 @@
                 <a href="{{ url_for('login') }}" class="nav-button" data-aos="fade-left">Minha Conta</a>
                 <a href="{{ url_for('criarconta') }}" class="nav-button" data-aos="fade-left">Criar Conta</a>
             {% endif %}
-            
+            <a href="{{ url_for('adicionarProduto') }}"  class="nav-button" data-aos="fade-left">Adicionar Produto</a>
+            <a href="{{ url_for('listaprodutos') }}"  class="nav-button" data-aos="fade-left">Produtos</a>
+
             <a href="{{ url_for('guitarforme') }}" class="nav-button" data-aos="fade-left">Sua Guitarra ideal</a>
         </nav>
     </header>

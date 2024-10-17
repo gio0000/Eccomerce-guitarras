@@ -242,18 +242,15 @@
             <a href="{{ url_for('index') }}">Início</a>
             <a href="{{ url_for('products') }}">Produtos</a>
             <a href="{{ url_for('contact') }}">Contato</a>
-            <a href="{{ url_for('login') }}" class="nav-button">Minha Conta</a>
-            <a href="{{ url_for('criarconta') }}" class="nav-button">Criar Conta</a>
-            <a href="cart.html" class="nav-button">
-                <img src="{{ url_for('static', filename='img/carrinhodecompras.png') }}" alt="Carrinho" class="icon" />
-            </a>
+            <a href="{{ url_for('login') }}">Minha Conta</a>
+            <a href="{{ url_for('criarconta') }}">Criar Conta</a>
+            <a href="{{ url_for('carrinho') }}">Carrinho</a>
         </nav>
     </header>
 
     <main>
         <h2>Todos os Produtos</h2>
 
-        <!-- Menu de seleção de marcas -->
         <form id="filterForm">
             <label for="brand">Selecione a Marca:</label>
             <select id="brand" name="brand">
@@ -269,372 +266,39 @@
             </select>
             <button type="submit">Filtrar</button>
         </form>
-    
+
         <div class="card-container">
-            <div class="card">
-                <img src="{{ url_for('static', filename='img/wee.webp') }}" alt="Guitarra Les Paul">
-                <div class="card-details">
-                    <h2>Guitarra Stratocaster</h2>
-                    <span>R$ 925,99</span>
-                    <button onclick="openModal('Stratocaster', '{{ url_for('static' , filename='img/wee.webp') }}', 'R$ 925,99', 
-                    'Tipo de madeira do corpo: Tília<br>Material do diapasão: Madeira técnica<br>Orientação da mão: Destro<br>Feita em tília.<br>Com 6 cordas e 22 trastes.<br>O comprimento da escala é de 25')">Saiba mais</button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="{{ url_for('static', filename='img/guita3.webp') }}" alt="Guitarra Les Paul">
-                <div class="card-details">
-                    <h2>Guitarra Stratocaster</h2>
-                    <span>R$ 900,99</span>
-                    <button onclick="openModal('Stratocaster', '{{ url_for('static' , filename='img/guita3.webp') }}', 'R$ 900,99', 
-                    'Tipo de madeira do corpo: Tília<br>Material do diapasão: Madeira técnica<br>Orientação da mão: Destro<br>Feita em tília.<br>Com 6 cordas e 22 trastes.<br>O comprimento da escala é de 25')">Saiba mais</button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="{{ url_for('static', filename='img/guita4.webp') }}" alt="Guitarra Les Paul">
-                <div class="card-details">
-                    <h2>Guitarra Stratocaster Ibanez</h2>
-                    <span>R$ 975,99</span>
-                    <button onclick="openModal('Stratocaster', '{{ url_for('static' , filename='img/guita4.webp') }}', 'R$  975,99', 
-                    'Tipo de madeira do corpo: Tília<br>Material do diapasão: Madeira técnica<br>Orientação da mão: Destro<br>Feita em tília.<br>Com 6 cordas e 22 trastes.<br>O comprimento da escala é de 25')">Saiba mais</button>
-                </div>
-            </div>
-        
-        
-            <div class="card">
-                <img src="{{ url_for('static', filename='img/guita1.png') }}" alt="Guitarra Les Paul">
-                <div class="card-details">
-                    <h2>Guitarra Stratocaster Ibanez</h2>
-                    <span>R$ 925,99</span>
-                    <button onclick="openModal('Stratocaster', '{{ url_for('static', filename='img/guita1.png') }}', 'R$ 925,99', 
-                    'Tipo de madeira do corpo: Tília<br>Material do diapasão: Madeira técnica<br>Orientação da mão: Destro<br>Feita em tília.<br>Com 6 cordas e 22 trastes.<br>O comprimento da escala é de 25')">Saiba mais</button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="{{ url_for('static', filename='img/guita2.jpg') }}" alt="Guitarra Les Paul">
-                <div class="card-details">
-                    <h2>Guitarra Stratocaster Ibanez</h2>
-                    <span>R$ 925,99</span>
-                    <button onclick="openModal('Stratocaster', '{{ url_for('static', filename='img/guita2.jpg') }}', 'R$ 925,99', 
-                    'Tipo de madeira do corpo: Tília<br>Material do diapasão: Madeira técnica<br>Orientação da mão: Destro<br>Feita em Mogno .<br>Com 6 cordas e 22 trastes.<br>O comprimento da escala é de 25')">Saiba mais</button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="{{ url_for('static', filename='img/guita6.jpg') }}" alt="Guitarra Les Paul">
-                <div class="card-details">
-                    <h2>Guitarra Stratocaster Ibanez</h2>
-                    <span>R$ 925,99</span>
-                    <button onclick="openModal('Stratocaster', '{{ url_for('static', filename='img/guita6.jpg') }}', 'R$ 925,99', 
-                    'Tipo de madeira do corpo: Tília<br>Material do diapasão: Madeira técnica<br>Orientação da mão: Destro<br>Feita em tília.<br>Com 6 cordas e 22 trastes.<br>O comprimento da escala é de 25')">Saiba mais</button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="{{ url_for('static', filename='img/guita7.jpg') }}" alt="Guitarra Les Paul">
-                <div class="card-details">
-                    <h2>Guitarra Stratocaster Ibanez</h2>
-                    <span>R$ 925,99</span>
-                    <button onclick="openModal('Stratocaster', '{{ url_for('static', filename='img/guita7.jpg') }}', 'R$ 925,99', 
-                    'Tipo de madeira do corpo: Tília<br>Material do diapasão: Madeira técnica<br>Orientação da mão: Destro<br>Feita em tília.<br>Com 6 cordas e 22 trastes.<br>O comprimento da escala é de 25')">Saiba mais</button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="{{ url_for('static', filename='img/guita8.webp') }}" alt="Guitarra Les Paul">
-                <div class="card-details">
-                    <h2>Guitarra Telecaster</h2>
-                    <span>R$ 1400,99</span>
-                    <button onclick="openModal('Telecaster', '{{ url_for('static', filename='img/guita8.webp') }}', 'R$ 1400,99', 
-                    'Tipo de madeira do corpo: Tília<br>Material do diapasão: Madeira técnica<br>Orientação da mão: Destro<br>Feita em Mogno .<br>Com 6 cordas e 22 trastes.<br>O comprimento da escala é de 25')">Saiba mais</button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="{{ url_for('static', filename='img/telecastermode.webp') }}" alt="Guitarra Les Paul">
-                <div class="card-details">
-                    <h2>Guitarra Telecaster</h2>
-                    <span>R$ 1400,99</span>
-                    <button onclick="openModal('Telecaster', '{{ url_for('static', filename='img/telecastermode.webp') }}', 'R$ 1400,99', 
-                    'Tipo de madeira do corpo: Tília<br>Material do diapasão: Madeira técnica<br>Orientação da mão: Destro<br>Feita em tília.<br>Com 6 cordas e 22 trastes.<br>O comprimento da escala é de 25')">Saiba mais</button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="{{ url_for('static', filename='img/telecastermode2.webp') }}" alt="Guitarra Les Paul">
-                <div class="card-details">
-                    <h2>Guitarra Telecaster</h2>
-                    <span>R$ 1400,99</span>
-                    <button onclick="openModal('Telecaster', '{{ url_for('static', filename='img/telecastermode2.webp') }}', 'R$ 1400,99', 
-                    'Tipo de madeira do corpo: Tília<br>Material do diapasão: Madeira técnica<br>Orientação da mão: Destro<br>Feita em Mogno .<br>Com 6 cordas e 22 trastes.<br>O comprimento da escala é de 25')">Saiba mais</button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="{{ url_for('static', filename='img/telecastermode4.webp') }}" alt="Guitarra Les Paul">
-                <div class="card-details">
-                    <h2>Guitarra Telecaster</h2>
-                    <span>R$ 1400,99</span>
-                    <button onclick="openModal('Telecaster', '{{ url_for('static', filename='img/telecastermode4.webp') }}', 'R$ 1400,99', 
-                    'Tipo de madeira do corpo: Tília<br>Material do diapasão: Madeira técnica<br>Orientação da mão: Destro<br>Feita em tília.<br>Com 6 cordas e 22 trastes.<br>O comprimento da escala é de 25')">Saiba mais</button>
-                </div>
-            </div>
-            <!-- /.copiar -->
-            <div class="card">
-                <img src="{{ url_for('static', filename='img/telecastermode5.webp') }}" alt="Guitarra Les Paul">
-                <div class="card-details">
-                    <h2>Guitarra Telecaster</h2>
-                    <span>R$ 1400,99</span>
-                    <button onclick="openModal('Telecaster', '{{ url_for('static', filename='img/telecastermode5.webp') }}', 'R$ 1400,99', 
-                    'Tipo de madeira do corpo: Tília<br>Material do diapasão: Madeira técnica<br>Orientação da mão: Destro<br>Feita em Mogno .<br>Com 6 cordas e 22 trastes.<br>O comprimento da escala é de 25')">Saiba mais</button>
-                </div>
-            </div>
-            <!-- /.copiarccolar depois do copiar -->
-            <div class="card">
-                <img src="{{ url_for('static', filename='img/telecastermode6.webp') }}" alt="Guitarra Les Paul">
-                <div class="card-details">
-                    <h2>Guitarra Telecaster</h2>
-                    <span>R$ 1400,99</span>
-                    <button onclick="openModal('Telecaster', '{{ url_for('static', filename='img/telecastermode6.webp') }}', 'R$ 1400,99', 
-                    'Tipo de madeira do corpo: Tília<br>Material do diapasão: Madeira técnica<br>Orientação da mão: Destro<br>Feita em ASH .<br>Com 6 cordas e 22 trastes.<br>O comprimento da escala é de 25')">Saiba mais</button>
-                </div>
-            </div>
-            <!-- /.copiarccolar depois do copiar -->
-            <div class="card">
-                <img src="{{ url_for('static', filename='img/telecastermode8.webp') }}" alt="Guitarra Les Paul">
-                <div class="card-details">
-                    <h2>Guitarra Telecaster</h2>
-                    <span>R$ 1400,99</span>
-                    <button onclick="openModal('Telecaster', '{{ url_for('static', filename='img/telecastermode8.webp') }}', 'R$ 1400,99', 
-                    'Tipo de madeira do corpo: Tília<br>Material do diapasão: Madeira técnica<br>Orientação da mão: Destro<br>Feita em tília.<br>Com 6 cordas e 22 trastes.<br>O comprimento da escala é de 25')">Saiba mais</button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="{{ url_for('static', filename='img/telecasternova.webp') }}" alt="Guitarra Les Paul">
-                <div class="card-details">
-                    <h2>Guitarra Telecaster</h2>
-                    <span>R$ 1400,99</span>
-                    <button onclick="openModal('Telecaster', '{{ url_for('static', filename='img/telecasternova.webp') }}', 'R$ 1400,99', 
-                    'Tipo de madeira do corpo: Tília<br>Material do diapasão: Madeira técnica<br>Orientação da mão: Destro<br>Feita em tília.<br>Com 6 cordas e 22 trastes.<br>O comprimento da escala é de 25')">Saiba mais</button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="{{ url_for('static', filename='img/telecastermode96.webp') }}" alt="Guitarra Les Paul">
-                <div class="card-details">
-                    <h2>Guitarra Telecaster</h2>
-                    <span>R$ 1400,99</span>
-                    <button onclick="openModal('Telecaster', '{{ url_for('static', filename='img/telecastermode96.webp') }}', 'R$ 1400,99', 
-                    'Tipo de madeira do corpo: Tília<br>Material do diapasão: Madeira técnica<br>Orientação da mão: Destro<br>Feita em ASH .<br>Com 6 cordas e 22 trastes.<br>O comprimento da escala é de 25')">Saiba mais</button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="{{ url_for('static', filename='img/telecastermode45.webp') }}" alt="Guitarra Les Paul">
-                <div class="card-details">
-                    <h2>Guitarra Telecaster</h2>
-                    <span>R$ 1400,99</span>
-                    <button onclick="openModal('Telecaster', '{{ url_for('static', filename='img/telecastermode45.webp') }}', 'R$ 1400,99', 
-                    'Tipo de madeira do corpo: Tília<br>Material do diapasão: Madeira técnica<br>Orientação da mão: Destro<br>Feita em Mogno .<br>Com 6 cordas e 22 trastes.<br>O comprimento da escala é de 25')">Saiba mais</button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="{{ url_for('static', filename='img/telecasterr.webp') }}" alt="Guitarra Les Paul">
-                <div class="card-details">
-                    <h2>Guitarra Les paul</h2>
-                    <span>R$ 1123,99</span>
-                    <button onclick="openModal('Les Paul', '{{ url_for('static', filename='img/telecasterr.webp') }}', '1123,99',
-                    'Tipo de madeira do corpo: Tília<br>Material do diapasão: Madeira técnica<br>Orientação da mão: Destro<br>Feita em tília.<br>Com 6 cordas e 22 trastes.<br>O comprimento da escala é de 25')">Saiba mais</button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="{{ url_for('static', filename='img/lespaul1.webp') }}" alt="Guitarra Les Paul">
-                <div class="card-details">
-                    <h2>Guitarra Les paul</h2>
-                    <span>R$ 1123,99</span>
-                    <button onclick="openModal('Les Paul', '{{ url_for('static', filename='img/lespaul1.webp') }}', 'R$ 1123,99', 
-                    'Tipo de madeira do corpo: Tília<br>Material do diapasão: Madeira técnica<br>Orientação da mão: Destro<br>Feita em ASH .<br>Com 6 cordas e 22 trastes.<br>O comprimento da escala é de 25')">Saiba mais</button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="{{ url_for('static', filename='img/lespaul2.webp') }}" alt="Guitarra Les Paul">
-                <div class="card-details">
-                    <h2>Guitarra Les paul</h2>
-                    <span>R$ 1123,99</span>
-                    <button onclick="openModal(' Les paul ', '{{ url_for('static', filename='img/lespaul2.webp') }}', 'R$ 1123,99', 'Descrição da Guitarra Les Paul aqui.')">Saiba mais</button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="{{ url_for('static', filename='img/lespaul3.webp') }}" alt="Guitarra Les Paul">
-                <div class="card-details">
-                    <h2>Guitarra Les paul</h2>
-                    <span>R$ 1123,99</span>
-                    <button onclick="openModal('Les Paul', '{{ url_for('static', filename='img/lespaul3.webp') }}', 'R$ 1123,99', 
-                    'Tipo de madeira do corpo: Tília<br>Material do diapasão: Madeira técnica<br>Orientação da mão: Destro<br>Feita em ASH .<br>Com 6 cordas e 22 trastes.<br>O comprimento da escala é de 25')">Saiba mais</button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="{{ url_for('static', filename='img/lespaul4.webp') }}" alt="Guitarra Les Paul">
-                <div class="card-details">
-                    <h2>Guitarra Les paul</h2>
-                    <span>R$ 1123,99</span>
-                    <button onclick="openModal('Les Paul', '{{ url_for('static', filename='img/lespaul4.webp') }}', 'R$ 1123,99', 
-                    'Tipo de madeira do corpo: Tília<br>Material do diapasão: Madeira técnica<br>Orientação da mão: Destro<br>Feita em tília.<br>Com 6 cordas e 22 trastes.<br>O comprimento da escala é de 25')">Saiba mais</button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="{{ url_for('static', filename='img/lespaul5.jpg') }}" alt="Guitarra Les Paul">
-                <div class="card-details">
-                    <h2>Guitarra Les paul</h2>
-                    <span>R$ 1123,99</span>
-                    <button onclick="openModal('Les Paul', '{{ url_for('static', filename='img/lespaul5.jpg') }}', '1123,99', 
-                    'Tipo de madeira do corpo: Tília<br>Material do diapasão: Madeira técnica<br>Orientação da mão: Destro<br>Feita em tília.<br>Com 6 cordas e 22 trastes.<br>O comprimento da escala é de 25')">Saiba mais</button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="{{ url_for('static', filename='img/lespaul6.jpg') }}" alt="Guitarra Les Paul">
-                <div class="card-details">
-                    <h2>Guitarra Les paul</h2>
-                    <span>R$ 1123,99</span>
-                    <button onclick="openModal('Les Paul', '{{ url_for('static', filename='img/lespaul6.jpg') }}', 'R$ 1123,99', 
-                    'Tipo de madeira do corpo: Tília<br>Material do diapasão: Madeira técnica<br>Orientação da mão: Destro<br>Feita em ASH .<br>Com 6 cordas e 22 trastes.<br>O comprimento da escala é de 25')">Saiba mais</button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="{{ url_for('static', filename='img/telecasterverde.jpg') }}" alt="Guitarra Les Paul">
-                <div class="card-details">
-                    <h2>Guitarra Les paul</h2>
-                    <span>R$ 1123,99</span>
-                    <button onclick="openModal('Les Paul', '{{ url_for('static', filename='img/telecasterverde.jpg') }}', 'R$ 1123,99', 
-                    'Tipo de madeira do corpo: Tília<br>Material do diapasão: Madeira técnica<br>Orientação da mão: Destro<br>Feita em tília.<br>Com 6 cordas e 22 trastes.<br>O comprimento da escala é de 25')">Saiba mais</button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="{{ url_for('static', filename='img/SG1.jpg') }}" alt="Guitarra Les Paul">
+            {% for produto in produtos %}
+                <div class="card" onclick="openModal('{{ produto.name }}', '{{ url_for('static', filename='uploads/' + produto.imagem) }}', 'R$ {{ produto.preco }}', '{{ produto.descricao|replace('\n', '<br>') }}')">
+                    <img src="{{ url_for('static', filename='uploads/' + produto.imagem) }}" alt="{{ produto.name }}">
                     <div class="card-details">
-                        <h2>Guitarra SG</h2>
-                        <span>R$ 1500,99</span>
-                        <button onclick="openModal('SG', '{{ url_for('static', filename='img/SG1.jpg') }}', 'R$ 1500,99', 
-                    'Tipo de madeira do corpo: Tília<br>Material do diapasão: Madeira técnica<br>Orientação da mão: Destro<br>Feita em ASH .<br>Com 6 cordas e 22 trastes.<br>O comprimento da escala é de 25')">Saiba mais</button>
-                </div>
-            </div>
-            <div class="card">
-            <img src="{{ url_for('static', filename='img/SG2.webp') }}" alt="Guitarra Les Paul">
-                <div class="card-details">
-                    <h2>Guitarra SG</h2>
-                    <span>R$ 1500,99</span>
-                    <button onclick="openModal('SG', '{{ url_for('static', filename='img/SG2.webp') }}', 'R$ 1500,99', 
-                    'Tipo de madeira do corpo: Tília<br>Material do diapasão: Madeira técnica<br>Orientação da mão: Destro<br>Feita em tília.<br>Com 6 cordas e 22 trastes.<br>O comprimento da escala é de 25')">Saiba mais</button>
-                </div>
-            </div>
-            <div class="card">
-            <img src="{{ url_for('static', filename='img/SG3.jpg') }}" alt="Guitarra Les Paul">
-                <div class="card-details">
-                    <h2>Guitarra SG</h2>
-                    <span>R$ 1500,99</span>
-                    <button onclick="openModal('SG', '{{ url_for('static', filename='img/SG3.jpg') }}', 'R$ 1500,99', 
-                    'Tipo de madeira do corpo: Tília<br>Material do diapasão: Madeira técnica<br>Orientação da mão: Destro<br>Feita em tília.<br>Com 6 cordas e 22 trastes.<br>O comprimento da escala é de 25')">Saiba mais</button>
-                </div>
-            </div>
-            <div class="card">
-            <img src="{{ url_for('static', filename='img/SG4.jpg') }}" alt="Guitarra Les Paul">
-                <div class="card-details">
-                    <h2>Guitarra SG</h2>
-                    <span>R$ 1500,99</span>
-                    <button onclick="openModal('SG', '{{ url_for('static', filename='img/SG4.jpg') }}', 'R$ 1500,99', 
-                    'Tipo de madeira do corpo: Tília<br>Material do diapasão: Madeira técnica<br>Orientação da mão: Destro<br>Feita em tília.<br>Com 6 cordas e 22 trastes.<br>O comprimento da escala é de 25')">Saiba mais</button>
-                </div>
-            </div>
-            <div class="card">
-            <img src="{{ url_for('static', filename='img/EXPLORER1.jpg') }}" alt="Guitarra Les Paul">
-                <div class="card-details">
-                    <h2>Guitarra Explorer</h2>
-                    <span>R$ 15000,99</span>
-                    <button onclick="openModal('Explorer', '{{ url_for('static', filename='img/EXPLORER1.jpg') }}', 'R$ 1500,99', 
-                    'Tipo de madeira do corpo: Tília<br>Material do diapasão: Madeira técnica<br>Orientação da mão: Destro<br>Feita em ASH .<br>Com 6 cordas e 22 trastes.<br>O comprimento da escala é de 25')">Saiba mais</button>
-                </div>
-            </div>
-                <div class="card">
-                <img src="{{ url_for('static', filename='img/explorer2.jpg') }}" alt="Guitarra Les Paul">
-                    <div class="card-details">
-                        <h2>Guitarra Explorer</h2>
-                        <span>R$ 15000,99</span>
-                        <button onclick="openModal('Explorer', '{{ url_for('static', filename='img/explorer2.jpg') }}', 'R$ 1500,99', 
-                        'Tipo de madeira do corpo: Tília<br>Material do diapasão: Madeira técnica<br>Orientação da mão: Destro<br>Feita em tília.<br>Com 6 cordas e 22 trastes.<br>O comprimento da escala é de 25')">Saiba mais</button>
+                        <h2>{{ produto.nome }}</h2>
+                        <span>R$ {{ produto.preco }}</span>
+                        <span>{{ produto.descricao }}</span>
                     </div>
                 </div>
-                <div class="card">
-                <img src="{{ url_for('static', filename='img/explorer3.jpg') }}" alt="Guitarra Explorer">
-                    <div class="card-details">
-                        <h2>Guitarra Explorer</h2>
-                        <span>R$ 15000,99</span>
-                        <button onclick="openModal('Explorer', '{{ url_for('static', filename='img/explorer3.jpg') }}', 'R$ 1500,99', 
-                        'Tipo de madeira do corpo: Tília<br>Material do diapasão: Madeira técnica<br>Orientação da mão: Destro<br>Feita em ASH .<br>Com 6 cordas e 22 trastes.<br>O comprimento da escala é de 25')">Saiba mais</button>
-                    </div>
-                </div>
-                <div class="card">
-                <img src="{{ url_for('static', filename='img/V1.jpg') }}" alt="Guitarra Flying V">
-                    <div class="card-details">
-                        <h2>Guitarra Flying V</h2>
-                        <span>R$ 10000,99</span>
-                        <button onclick="openModal('Flying V', '{{ url_for('static', filename='img/V1.jpg') }}', 'R$ 10000,99', 
-                        'Tipo de madeira do corpo: Tília<br>Material do diapasão: Madeira técnica<br>Orientação da mão: Destro<br>Feita em tília.<br>Com 6 cordas e 22 trastes.<br>O comprimento da escala é de 25')">Saiba mais</button>
-                    </div>
-                </div>
-                    <div class="card">
-                    <img src="{{ url_for('static', filename='img/V2.jpg') }}" alt="Guitarra Flying V">
-                        <div class="card-details">
-                            <h2>Guitarra Flying V</h2>
-                            <span>R$ 10000,99</span>
-                            <button onclick="openModal(' Flying V', '{{ url_for('static', filename='img/V2.jpg') }}', 'R$ 10000,99', 
-                            'Tipo de madeira do corpo: Tília<br>Material do diapasão: Madeira técnica<br>Orientação da mão: Destro<br>Feita em ASH .<br>Com 6 cordas e 22 trastes.<br>O comprimento da escala é de 25')">Saiba mais</button>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img src="{{ url_for('static', filename='img/V3.webp') }}" alt="Guitarra Flying V">
-                        <div class="card-details">
-                            <h2>Guitarra Flying V</h2>
-                            <span>R$ 10000,99</span>
-                            <button onclick="openModal(' Flying V', '{{ url_for('static', filename='img/V3.webp') }}', 'R$ 10000,99', 
-                            'Tipo de madeira do corpo: Tília<br>Material do diapasão: Madeira técnica<br>Orientação da mão: Destro<br>Feita em tília.<br>Com 6 cordas e 22 trastes.<br>O comprimento da escala é de 25')">Saiba mais</button>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img src="{{ url_for('static', filename='img/V4.webp') }}" alt="Guitarra Flying V">
-                        <div class="card-details">
-                            <h2>Guitarra Flying V</h2>
-                            <span>R$ 10000,99</span>
-                            <button onclick="openModal(' Flying V', '{{ url_for('static', filename='img/V4.webp') }}', 'R$ 10000,99', 
-                            'Tipo de madeira do corpo: Tília<br>Material do diapasão: Madeira técnica<br>Orientação da mão: Destro<br>Feita em tília.<br>Com 6 cordas e 22 trastes.<br>O comprimento da escala é de 25')">Saiba mais</button>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img src="{{ url_for('static', filename='img/warlock1.webp') }}" alt="Guitarra Flying V">
-                        <div class="card-details">
-                            <h2>Guitarra Warlock</h2>
-                            <span>R$ 16000,00</span>
-                            <button onclick="openModal('Warlock', '{{ url_for('static', filename='img/warlock1.webp') }}', 'R$ 16000,00', 
-                            'Tipo de madeira do corpo: Tília<br>Material do diapasão: Madeira técnica<br>Orientação da mão: Destro<br>Feita em ASH .<br>Com 6 cordas e 22 trastes.<br>O comprimento da escala é de 25')">Saiba mais</button>
-                        </div>
-                    </div>
-                </div>  
-            </div>
-        </div>         
-    
-                         
-                
-            
-        <!-- Modal -->
+            {% endfor %}
+        </div>
+    </main>
+
+    <!-- Modal -->
     <div class="modal" id="productModal">
         <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
+            <span class="close" onclick="closeModal()">×</span>
             <div class="image-section">
-                <img id="modalImage" src="" alt="Produto" style="width: 100%; border-radius: 5px;">
+                <img id="modalImage" src="" alt="Produto">
             </div>
             <div class="details-section">
                 <h1 id="modalTitle">Título do Produto</h1>
                 <p class="price" id="modalPrice">Preço: </p>
                 <p id="modalDescription">Descrição: </p>
                 <button id="add-to-cart">Adicionar ao Carrinho</button>
-                <button class="buy-button">Comprar Agora</button>
+                <button class="buy-button" onclick="buyNow()">Comprar Agora</button>
             </div>
         </div>
     </div>
 
     <script>
-        let cart = []; // Array para armazenar os itens do carrinho
-
         function openModal(title, imageUrl, price, description) {
             document.getElementById('modalTitle').innerText = title;
             document.getElementById('modalImage').src = imageUrl;
@@ -646,23 +310,6 @@
         function closeModal() {
             document.getElementById('productModal').style.display = 'none';
         }
-
-        window.onclick = function(event) {
-            const modal = document.getElementById('productModal');
-            if (event.target === modal) {
-                closeModal();
-            }
-        };
-
-        document.getElementById('add-to-cart').addEventListener('click', function() {
-            const title = document.getElementById('modalTitle').innerText;
-            const priceText = document.getElementById('modalPrice').innerText;
-            const price = parseFloat(priceText.replace('Preço: ', '').replace(',', '.'));
-
-            cart.push({ title: title, price: price });
-            alert(`${title} foi adicionado ao carrinho!`);
-            console.log(cart); // Para verificar o conteúdo do carrinho
-        });
     </script>
 </body>
 </html>

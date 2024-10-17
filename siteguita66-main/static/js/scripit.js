@@ -1,93 +1,62 @@
-// Lista de produtos com imagens e informações
-const products = [
-    { id: 1, name: 'Guitarra Elétrica Stratocaster', price: 'R$ 3.000', image: 'https://www.fender.com/cdn-cgi/image/format=png/https://www.fmicassets.com/Damroot/ZoomJpg/10037/0140510558_fen_ins_frt_1_rr.jpg', link: 'details.html' },
-    { id: 2, name: 'Guitarra Acústica', price: 'R$ 1.500', image: 'https://www.fender.com/cdn-cgi/image/format=png/https://www.fmicassets.com/Damroot/ZoomJpg/10037/0140510558_fen_ins_frt_1_rr.jpg', link: 'details.html' },
-    // Adicione mais produtos conforme necessário
-];
+let cart = JSON.parse(localStorage.getItem('cart')) || []; // Carrega o carrinho do localStorage
 
-// Função para exibir produtos na página inicial e na página de produtos
-function displayProducts() {
-    const productContainer = document.querySelector('.product-list');
-    if (!productContainer) return; // Verifica se o container existe
-
-    productContainer.innerHTML = ''; // Limpa o container
-
-    products.forEach(product => {
-        const productElement = document.createElement('div');
-        productElement.classList.add('product');
-        
-        productElement.innerHTML = `
-            <img src="${product.image}" alt="${product.name}" class="product-image">
-            <h3>${product.name}</h3>
-            <p>${product.price}</p>
-            <a href="${product.link}">Ver mais</a>
-        `;
-        
-        productContainer.appendChild(productElement);
-    });
-
-    // Ajusta o tamanho das imagens após adicionar os produtos
-    resizeImages('.product-list .product-image', 200, 150);
-}
-
-// Função para ajustar o tamanho das imagens
-function resizeImages(selector, width, height) {
-    const images = document.querySelectorAll(selector);
-
-    images.forEach(image => {
-        image.style.width = `${width}px`;
-        image.style.height = `${height}px`;
-        image.style.objectFit = 'cover'; // Ajusta a imagem para cobrir o contêiner sem distorcer
-    });
-}
-
-// Adiciona um listener para carregar os produtos quando o DOM estiver completamente carregado
 document.addEventListener('DOMContentLoaded', () => {
-    displayProducts();
-    startCarousel(); // Inicia o carrossel automático
-});
+    const cartItemsElement = document.getElementById('cart-items');
+    const cartMessage = document.getElementById('cart-message');
+    const clearCartButton = document.getElementById('clear-cart');
 
-// Função para mover o slide
-function moveSlide(step) {
-    const slides = document.querySelectorAll('.slider-content .slides img');
-    const totalSlides = slides.length;
-    const sliderContainer = document.querySelector('.slider-content .slides');
-    if (!sliderContainer) return;
+    // Atualiza a visualização do carrinho
+    function updateCartDisplay() {
+        cartItemsElement.innerHTML = '';
+        
+        if (cart.length === 0) {
+            cartMessage.textContent = 'O carrinho está vazio.';
+            clearCartButton.style.display = 'none';
+        } else {
+            cartMessage.textContent = '';
+            cart.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = `${item.name} - R$ ${item.price.toFixed(2)}`;
+                cartItemsElement.appendChild(li);
+            });
+            clearCartButton.style.display = 'inline';
+        }
 
-    currentIndex = (currentIndex + step + totalSlides) % totalSlides;
-    const offset = -currentIndex * 100;
-    sliderContainer.style.transform = `translateX(${offset}%)`;
-}
-
-// Adiciona listeners para as setas do carrossel
-document.querySelector('.carousel-prev').addEventListener('click', () => moveSlide(-1));
-document.querySelector('.carousel-next').addEventListener('click', () => moveSlide(1));
-
-// Função para iniciar o carrossel automático
-function startCarousel() {
-    const radios = document.querySelectorAll('#carousel input[type="radio"]');
-    if (radios.length === 0) return; // Verifica se há radios para o carrossel
-
-    let currentIndex = 0;
-    const totalSlides = radios.length;
-
-    function moveToNextSlide() {
-        radios[currentIndex].checked = false;
-        currentIndex = (currentIndex + 1) % totalSlides;
-        radios[currentIndex].checked = true;
-        moveSlide(1); // Mover o slide para a próxima posição
+        localStorage.setItem('cart', JSON.stringify(cart)); // Salva o carrinho no localStorage
     }
 
-    // Muda para o próximo slide a cada 3 segundos (3000 milissegundos)
-    setInterval(moveToNextSlide, 3000);
-}
-
-// Função para alterar a cor do cabeçalho ao rolar
-document.addEventListener('scroll', () => {
-    const header = document.querySelector('header');
-    if (window.scrollY > 50) {
-        header.classList.add('scrolled');
-    } else {
-        header.classList.remove('scrolled');
+    // Adiciona produto ao carrinho
+    function addToCart(product) {
+        cart.push(product);
+        updateCartDisplay();
     }
+
+    // Adiciona produto ao carrinho a partir do modal
+    window.addToCartFromModal = function() {
+        const title = document.getElementById('modalTitle').innerText;
+        const price = parseFloat(document.getElementById('modalPrice').innerText.replace('Preço: ', ''));
+        addToCart({ name: title, price: price });
+        closeModal();
+    };
+
+    // Limpa o carrinho
+    clearCartButton.addEventListener('click', () => {
+        cart = [];
+        updateCartDisplay();
+    });
+
+    // Funções para abrir e fechar o modal
+    window.openModal = function(title, imageUrl, price, description) {
+        document.getElementById('modalTitle').innerText = title;
+        document.getElementById('modalImage').src = imageUrl;
+        document.getElementById('modalPrice').innerText = 'Preço: ' + price.toFixed(2);
+        document.getElementById('modalDescription').innerHTML = description; 
+        document.getElementById('productModal').style.display = 'block';
+    };
+
+    window.closeModal = function() {
+        document.getElementById('productModal').style.display = 'none';
+    };
+
+    updateCartDisplay(); // Atualiza a exibição inicial do carrinho
 });

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar Produto</title>
+</head>
+<body>
+    <h2>Adicionar Produto</h2>
+    <form id="product-form" action="/add_product" method="POST" enctype="multipart/form-data">
+        <!-- Nome do Produto -->
+        <label for="productName">Nome do Produto:</label>
+        <input type="text" id="productName" name="productName" required>
+
+        <!-- Descrição do Produto -->
+        <label for="productDescription">Descrição:</label>
+        <textarea id="productDescription" name="productDescription" required></textarea>
+
+        <label for="productDescription">Descrição detalhada:</label>
+        <textarea id="productDescription" name="productDescriptionDetails" required></textarea>
+
+
+
+        <!-- Preço do Produto -->
+        <label for="productPrice">Preço:</label>
+        <input type="number" id="productPrice" name="productPrice" step="0.01" required>
+
+        <!-- Upload da Imagem do Produto -->
+        <label for="productImage">Imagem do Produto:</label>
+        <input type="file" id="productImage" name="productImage" accept="image/*" required>
+
+        <!-- Botão de Submissão -->
+        <button type="submit">Adicionar Produto</button>
+    </form>
+</body>
+</html>
