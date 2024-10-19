@@ -9,18 +9,24 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            background-color: #000000; /* Fundo preto */
+            color: #00FFFF; /* Texto azul neon */
         }
 
         .produto-container {
             padding: 20px;
             max-width: 1200px;
             margin: 0 auto;
-            background-color: #fff;
+            background-color: #111111; /* Fundo preto suave */
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5); /* Sombra azul neon */
         }
 
         h1 {
-            color: #333;
+            color: #00FFFF; /* Título azul neon */
+            text-align: center;
+            border-bottom: 2px solid #00FFFF;
+            padding-bottom: 10px;
         }
 
         .produto {
@@ -33,13 +39,13 @@
             width: 895px;
             height: 895px;
             overflow: hidden;
-            border: 1px solid #ddd;
+            border: 1px solid #00FFFF; /* Borda azul neon */
             border-radius: 8px;
             margin-right: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #f9f9f9;
+            background-color: #111111;
         }
 
         .imagem img {
@@ -50,50 +56,54 @@
         .info {
             flex: 1;
             padding: 20px;
-            background-color: #fff;
+            background-color: #111111; /* Fundo preto suave */
+            border-radius: 8px;
         }
 
         .price {
             font-size: 24px;
-            color: #f44336;
+            color: #00FFFF; /* Azul neon para preço */
         }
 
         .description, .descricao_detalhada {
             margin: 10px 0;
+            color: #00CED1; /* Texto mais suave em azul */
         }
 
         button {
             padding: 10px 20px;
             margin-right: 10px;
-            background-color: #f44336;
-            color: white;
+            background-color: #00FFFF; /* Azul neon para botões */
+            color: #000000; /* Texto preto */
             border: none;
             cursor: pointer;
             border-radius: 5px;
+            transition: background-color 0.3s ease;
         }
 
         button:hover {
-            background-color: #d32f2f;
+            background-color: #00CED1; /* Azul neon mais claro no hover */
         }
 
         .buy-button {
-            background-color: #4CAF50;
+            background-color: #1E90FF; /* Botão Comprar Agora com azul neon mais escuro */
         }
 
         .buy-button:hover {
-            background-color: #45a049;
+            background-color: #00CED1; /* Azul neon mais claro no hover */
         }
 
         .especificacoes {
             margin-top: 20px;
-            background-color: #f9f9f9;
+            background-color: #111111; /* Fundo preto suave para especificações */
             padding: 15px;
             border-radius: 8px;
-            border: 1px solid #ddd;
+            border: 1px solid #00FFFF; /* Borda azul neon */
         }
 
         .especificacoes h3 {
             margin-top: 0;
+            color: #00FFFF; /* Título das especificações em azul neon */
         }
 
         .especificacoes ul {
@@ -103,8 +113,30 @@
 
         .especificacoes ul li {
             margin: 5px 0;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #00CED1; /* Separador em azul suave */
             padding-bottom: 5px;
+            color: #00CED1;
+        }
+
+        /* Estilização responsiva para telas menores */
+        @media (max-width: 768px) {
+            .produto {
+                flex-direction: column;
+            }
+
+            .imagem {
+                width: 100%;
+                height: auto;
+                margin-bottom: 20px;
+            }
+
+            .info {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
         }
     </style>
 </head>

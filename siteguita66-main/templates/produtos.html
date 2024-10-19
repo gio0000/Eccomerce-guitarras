@@ -5,28 +5,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minha Coleção de Guitarras</title>
     <style>
+        /* Estilos globais */
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            margin: 0;
+            padding: 20px;
+            background-color: #000; /* Fundo preto */
+            color: #00FFFF; /* Texto azul neon */
+        }
+        h1 {
+            text-align: center;
+            color: #00FFFF; /* Título azul neon */
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px #00FFFF; /* Sombra de texto azul neon */
         }
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
+            background-color: #1A1A1A; /* Fundo da tabela */
+            border-radius: 8px; /* Bordas arredondadas */
+            overflow: hidden; /* Oculta as bordas arredondadas */
         }
         th, td {
-            border: 1px solid #ccc;
-            padding: 8px;
+            border: 1px solid #00FFFF; /* Bordas azul neon */
+            padding: 12px;
             text-align: left;
         }
         th {
-            background-color: #f4f4f4;
+            background-color: #00CED1; /* Azul neon suave para o cabeçalho */
+            color: #000; /* Texto preto no cabeçalho */
+        }
+        tr:nth-child(even) {
+            background-color: #222; /* Fundo escuro para linhas pares */
+        }
+        tr:hover {
+            background-color: #00FFFF; /* Azul neon ao passar o mouse */
+            color: #000; /* Texto preto ao passar o mouse */
+        }
+        button {
+            padding: 8px 16px;
+            background-color: #00FFFF; /* Azul neon */
+            color: #000; /* Texto preto */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #00CED1; /* Azul neon mais claro ao passar o mouse */
+        }
+        a {
+            text-decoration: none; /* Remove o sublinhado dos links */
         }
     </style>
 </head>
 <body>
 
-    <h1>Produtos diponíveis na loja</h1>
+    <h1>Produtos disponíveis na loja</h1>
     <table>
         <thead>
             <tr>

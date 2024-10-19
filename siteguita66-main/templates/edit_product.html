@@ -3,6 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <title>Editar Produto</title>
+    <style>
+        /* Estilos globais */
+        body {
+            background-color: #000000; /* Fundo preto */
+            color: #00FFFF; /* Texto azul neon */
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #00FFFF; /* Título azul neon */
+            text-align: center;
+            border-bottom: 2px solid #00FFFF;
+            padding-bottom: 10px;
+        }
+
+        /* Estilizando o formulário */
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #111111; /* Fundo preto suave para o formulário */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5); /* Sombra azul neon */
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #00FFFF; /* Texto azul neon */
+            font-weight: bold;
+        }
+
+        input[type="text"], textarea, input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #00FFFF; /* Borda azul neon */
+            border-radius: 4px;
+            background-color: #000000; /* Fundo preto para campos de entrada */
+            color: #FFFFFF; /* Texto branco */
+            outline: none;
+        }
+
+        input[type="text"]:focus, textarea:focus, input[type="file"]:focus {
+            border-color: #00FFFF; /* Borda azul neon ao focar */
+            box-shadow: 0 0 8px #00FFFF;
+        }
+
+        button {
+            background-color: #00FFFF; /* Botão azul neon */
+            color: #000000; /* Texto preto */
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #00CED1; /* Azul neon mais claro no hover */
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-align: center;
+            color: #00FFFF;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Estilização responsiva para telas menores */
+        @media (max-width: 768px) {
+            form {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
 </head>
 <body>
     <h1>Editar Produto</h1>
