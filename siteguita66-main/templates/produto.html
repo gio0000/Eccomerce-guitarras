@@ -93,31 +93,6 @@
             background-color: #00CED1; /* Azul neon mais claro no hover */
         }
 
-        .especificacoes {
-            margin-top: 20px;
-            background-color: #111111; /* Fundo preto suave para especificações */
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px solid #00FFFF; /* Borda azul neon */
-        }
-
-        .especificacoes h3 {
-            margin-top: 0;
-            color: #00FFFF; /* Título das especificações em azul neon */
-        }
-
-        .especificacoes ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .especificacoes ul li {
-            margin: 5px 0;
-            border-bottom: 1px solid #00CED1; /* Separador em azul suave */
-            padding-bottom: 5px;
-            color: #00CED1;
-        }
-
         /* Estilização responsiva para telas menores */
         @media (max-width: 768px) {
             .produto {
@@ -157,11 +132,32 @@
                 
                 <h3>Formas de Pagamento</h3>
                 <p>Aceitamos cartões de crédito, débito e PayPal.</p>
-
+            </div>
+        </div>
+    </div>
 
     <script>
+        const produto = {
+            id: "{{ produto.id }}", 
+            nome: "{{ produto.nome }}", 
+            preco: {{ produto.preco }},
+            imagem: "{{ url_for('static', filename='uploads/' + produto.imagem) }}"
+        };
+
+        document.getElementById('add-to-cart').addEventListener('click', function() {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const productInCart = cart.find(item => item.id === produto.id);
+
+            if (!productInCart) {
+                cart.push(produto);
+                localStorage.setItem('cart', JSON.stringify(cart));
+                alert("Produto adicionado ao carrinho!");
+            } else {
+                alert("Este produto já está no carrinho!");
+            }
+        });
+
         function buyNow() {
-            // Lógica para comprar agora
             alert("Compra realizada com sucesso!");
         }
     </script>

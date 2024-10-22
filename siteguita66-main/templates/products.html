@@ -251,7 +251,9 @@
     <main>
         <h2>Todos os Produtos</h2>
 
-        <form id="filterForm">
+        <form id="filterForm" method="GET" action="{{ url_for('products') }}">
+           
+        
             <label for="brand">Selecione a Marca:</label>
             <select id="brand" name="brand">
                 <option value="">Todas</option>
@@ -266,7 +268,7 @@
             </select>
             <button type="submit">Filtrar</button>
         </form>
-
+        
         
 
     <!-- Modal -->

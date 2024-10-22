@@ -1,54 +1,77 @@
-// Adiciona itens ao carrinho
-document.querySelectorAll('.menu-item a').forEach(button => {
-    button.addEventListener('click', function(event) {
-        event.preventDefault();
-        const itemName = this.getAttribute('data-name');
-        const itemPrice = parseFloat(this.getAttribute('data-price'));
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+const cartItemsList = document.getElementById('cart-items');
+const cartMessage = document.getElementById('cart-message');
+const clearCartButton = document.getElementById('clear-cart');
+const modal = document.getElementById('productModal');
+let currentProduct = {};
 
-        const orderItemsList = document.getElementById('order-items');
-        const li = document.createElement('li');
-        li.textContent = `${itemName} - R$ ${itemPrice.toFixed(2)}`;
-        
-        // Criação do ícone de remoção
-        const removeIcon = document.createElement('i');
-        removeIcon.className = 'fas fa-trash-alt';
-        removeIcon.style.cursor = 'pointer';
-        removeIcon.addEventListener('click', function() {
-            orderItemsList.removeChild(li);
-            total -= itemPrice;
-            cartCount--;
-            document.getElementById('cart-count').textContent = cartCount;
-            document.getElementById('order-total').textContent = `Total: R$ ${total.toFixed(2)}`;
+function displayCart() {
+    cartItemsList.innerHTML = '';
+    if (cart.length === 0) {
+        cartMessage.classList.add('empty');
+        cartMessage.textContent = 'O carrinho está vazio.';
+        clearCartButton.style.display = 'none';
+    } else {
+        cartMessage.classList.remove('empty');
+        cartMessage.textContent = `Você tem ${cart.length} itens no carrinho.`;
+        clearCartButton.style.display = 'block';
+
+        cart.forEach((item, index) => {
+            const li = document.createElement('li');
+            li.classList.add('cart-item');
+            li.innerHTML = `
+                <strong>${item.name}</strong> - R$${item.price.toFixed(2)}
+                <button onclick="removeFromCart(${index})">Remover</button>
+            `;
+            cartItemsList.appendChild(li);
         });
+    }
+}
 
-        li.appendChild(removeIcon);
-        orderItemsList.appendChild(li);
+function addToCart(product) {
+    cart.push(product);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    displayCart();
+}
 
-        total += itemPrice;
-        cartCount++;
-        document.getElementById('cart-count').textContent = cartCount;
-        document.getElementById('order-total').textContent = `Total: R$ ${total.toFixed(2)}`;
-    });
-});
-document.getElementById('delivery-form').addEventListener('submit', function(event) {
-event.preventDefault();
+function removeFromCart(index) {
+    cart.splice(index, 1);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    displayCart();
+}
 
-// Captura a opção de entrega selecionada
-const deliveryOption = document.querySelector('input[name="delivery-option"]:checked');
-const selectedDelivery = deliveryOption ? deliveryOption.value : 'Nenhuma opção selecionada';
+function clearCart() {
+    cart = [];
+    localStorage.removeItem('cart');
+    displayCart();
+}
 
-// Captura o método de pagamento selecionado
-const paymentMethod = document.querySelector('input[name="payment-method"]:checked');
-const selectedPayment = paymentMethod ? paymentMethod.value : 'Nenhum método de pagamento selecionado';
+clearCartButton.addEventListener('click', clearCart);
 
-// Mensagem de sucesso
-const successMessage = document.createElement('div');
-successMessage.className = 'alert alert-success';
-successMessage.textContent = "Compra finalizada com sucesso! Obrigado, " + document.getElementById('name').value + 
-                         ". Opção de entrega: " + selectedDelivery + 
-                         ". Método de pagamento: " + selectedPayment;
+// Modal functions
+function openModal(product) {
+    currentProduct = product;
+    document.getElementById('modalImage').src = product.image;
+    document.getElementById('modalTitle').textContent = product.name;
+    document.getElementById('modalPrice').textContent = `Preço: R$${product.price.toFixed(2)}`;
+    document.getElementById('modalDescription').textContent = product.description;
+    modal.style.display = 'block';
+}
 
-document.querySelector('.modal-body').prepend(successMessage);
-// Aqui você poderia adicionar a lógica para enviar os dados do pedido ao servidor
-});
+function closeModal() {
+    modal.style.display = 'none';
+}
 
+function addToCartFromModal() {
+    addToCart(currentProduct);
+    closeModal();
+}
+
+function buyNow() {
+    // Lógica para compra imediata
+    alert('Compra realizada!');
+    closeModal();
+}
+
+// Exibe o carrinho ao carregar a página
+document.addEventListener('DOMContentLoaded', displayCart);

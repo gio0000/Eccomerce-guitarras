@@ -17,6 +17,76 @@ def conexao():
         database="eccomerce_db"  # Nome do banco de dados
     )
 
+
+# Função para adicionar item ao carrinho
+def adicionar_ao_carrinho(produto_id):
+    # Verifica se o carrinho já existe na sessão
+    if 'carrinho' not in session:
+        session['carrinho'] = []
+
+    carrinho = session['carrinho']
+
+    # Conectar ao banco de dados para buscar o produto
+    try:
+        db = conexao()
+        cursor = db.cursor(dictionary=True)
+        cursor.execute("SELECT id, nome, preco, imagem FROM produtos WHERE id = %s", (produto_id,))
+        produto = cursor.fetchone()
+
+        if produto:
+            # Adicionar o produto ao carrinho
+            carrinho.append(produto)
+            session['carrinho'] = carrinho
+        else:
+            flash('Produto não encontrado.', 'danger')
+    except mysql.connector.Error as err:
+        flash(f"Erro ao adicionar produto: {str(err)}", 'danger')
+    finally:
+        cursor.close()
+        db.close()
+
+# Rota para exibir o carrinho
+@app.route('/carrinho')
+def carrinho():
+    carrinho = session.get('carrinho', [])
+    total = sum(item['preco'] for item in carrinho)  # Calcular o valor total do carrinho
+    return render_template('carrinho.html', carrinho=carrinho, total=total)
+
+# Rota para adicionar produtos ao carrinho
+@app.route('/adicionar_carrinho/<int:produto_id>')
+def adicionar_carrinho(produto_id):
+    adicionar_ao_carrinho(produto_id)
+    flash('Produto adicionado ao carrinho!', 'success')
+    return redirect(url_for('carrinho'))
+
+# Rota para remover item do carrinho
+@app.route('/remover_item/<int:produto_id>')
+def remover_item(produto_id):
+    carrinho = session.get('carrinho', [])
+    
+    # Remover o produto do carrinho pelo ID
+    for item in carrinho:
+        if item['id'] == produto_id:
+            carrinho.remove(item)
+            break
+
+    session['carrinho'] = carrinho
+    flash('Produto removido do carrinho.', 'success')
+    return redirect(url_for('carrinho'))
+
+# Rota para limpar o carrinho
+@app.route('/limpar_carrinho')
+def limpar_carrinho():
+    session.pop('carrinho', None)
+    flash('Carrinho limpo.', 'success')
+    return redirect(url_for('carrinho'))
+ 
+
+@app.route('/pagamento')
+def pagamento():
+    return render_template('pagamento.html')
+
+
 def get_usuario():
     return session.get('usuario_nome', 'Visitante')
 
@@ -28,25 +98,34 @@ def index():
 def criarconta():
     return render_template('criarconta.html')
 
+# Rota para exibir os produtos e aplicar o filtro de marca
 @app.route('/products', methods=['GET'])
 def products():
+    marca = request.args.get('brand')  # Obtém o valor do filtro de marca
+    
     try:
         db = conexao()
         cursor = db.cursor(dictionary=True)
-        cursor.execute("SELECT id, nome, descricao, descricao_detalhada, preco, imagem FROM produtos")
+
+        # Se uma marca for selecionada no filtro, filtrar os produtos por essa marca
+        if marca and marca != "":
+            cursor.execute("SELECT id, nome, descricao, descricao_detalhada, preco, imagem FROM produtos WHERE nome LIKE %s", (f"%{marca}%",))
+        else:
+            cursor.execute("SELECT id, nome, descricao, descricao_detalhada, preco, imagem FROM produtos")
+
         produtos = cursor.fetchall()
-        print(produtos)
 
         # Formatar o preço como string com duas casas decimais
         for produto in produtos:
-            produto['price'] = "{:.2f}".format(float(produto['preco']))  # Converte para float antes de formatar
+            produto['preco'] = "{:.2f}".format(float(produto['preco']))
 
     finally:
+        cursor.close()
         db.close()
-    
+
     return render_template('products.html', produtos=produtos)
 
-@app.route('/listaprodutos', methods = ['GET'])
+@app.route('/listaprodutos', methods=['GET'])
 def listaprodutos():
     try:
         # Conectar ao banco de dados
@@ -56,7 +135,6 @@ def listaprodutos():
         # Consulta para obter produtos
         cursor.execute("SELECT id, nome FROM produtos")
         produtos = cursor.fetchall()
-        print(produtos)
 
     except mysql.connector.Error as err:
         return jsonify({"error": str(err)}), 500
@@ -65,9 +143,7 @@ def listaprodutos():
         cursor.close()
         conn.close()
 
-        return render_template('produtos.html', produtos = produtos)
-    
-
+    return render_template('produtos.html', produtos=produtos)
 
 @app.route('/edit_product/<int:product_id>', methods=['GET', 'POST'])
 def edit_product(product_id):
@@ -120,10 +196,12 @@ def edit_product(product_id):
 
     return render_template('edit_product.html', product=product)
 
-
 @app.route('/guitarforme')
 def guitarforme():
     return render_template('guitarforme.html')
+
+
+
 
 @app.route('/contact')
 def contact():
@@ -133,17 +211,13 @@ def contact():
 def adicionarProduto():
     return render_template('adicionar.html')
 
-@app.route('/cart')
-def cart():
-    return render_template('cart.html')  # icon do carrinho
 
-@app.route('/minhaconta')  # Nova rota
+
+@app.route('/minhaconta')
 def minhaconta():
     return render_template('minhaconta.html')
 
-@app.route('/carrinho')  # Nova rota
-def carrinho():
-    return render_template('carrinho.html')
+
 
 @app.route('/produto/<int:produto_id>', methods=['GET'])
 def produto(produto_id):
@@ -164,9 +238,6 @@ def produto(produto_id):
         db.close()
 
     return render_template('produto.html', produto=produto)
-
-
-import os
 
 @app.route('/add_product', methods=['POST'])
 def add_product():
@@ -242,17 +313,17 @@ def login():
             session['usuario_id'] = usuario['id']
             session['usuario_nome'] = usuario['usuario']
             flash('Login bem-sucedido!', 'success')
-            return redirect(url_for('index'))  # Redireciona para a página inicial
+            return redirect(url_for('index'))
         else:
             flash('Email ou senha incorretos.', 'danger')
-            return redirect(url_for('login'))  # Redireciona para a página de login para mostrar a mensagem
+            return redirect(url_for('login'))
 
     return render_template('login.html')
 
 @app.route('/logout')
 def logout():
     session.pop('usuario_id', None)
-    session.pop('usuario_nome', None)  # Remove o nome de usuário da sessão
+    session.pop('usuario_nome', None)
     flash('Você foi desconectado.', 'success')
     return redirect(url_for('index'))
 

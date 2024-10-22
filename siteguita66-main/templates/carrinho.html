@@ -5,40 +5,154 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carrinho de Compras</title>
     <style>
-        body { font-family: Arial, sans-serif; }
-        #cart { margin-top: 20px; }
-        .empty { color: gray; }
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); }
-        .modal-content { background-color: #fff; margin: 15% auto; padding: 20px; border: 1px solid #888; width: 80%; }
-        .close { cursor: pointer; }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        #cart {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .empty { color: gray; text-align: center; }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+        .cart-item img {
+            width: 50px;
+            height: auto;
+            margin-right: 15px;
+        }
+        .cart-item h2 {
+            margin: 0;
+            font-size: 16px;
+        }
+        .cart-item p {
+            margin: 0;
+            color: #666;
+        }
+        .remove-button {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        #total {
+            font-size: 18px;
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: right;
+        }
+        #clear-cart {
+            background-color: #f44336;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            display: none;
+        }
+        #continue-shopping {
+            background-color: #00FFFF; /* Azul neon para continuar a compra */
+            color: black;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+        #continue-shopping:hover {
+            background-color: #00CED1; /* Azul neon mais claro no hover */
+        }
     </style>
 </head>
 <body>
-
     <h1>Carrinho de Compras</h1>
     <div id="cart">
         <p id="cart-message" class="empty">O carrinho está vazio.</p>
         <ul id="cart-items"></ul>
+        <div id="total"></div>
         <button id="clear-cart" style="display:none;">Limpar Carrinho</button>
+        <button id="continue-shopping">Continuar Comprando</button>
     </div>
 
-    <!-- Modal -->
-    <div class="modal" id="productModal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">×</span>
-            <div class="image-section">
-                <img id="modalImage" src="" alt="Produto" style="width: 100%; border-radius: 5px;">
-            </div>
-            <div class="details-section">
-                <h1 id="modalTitle">Título do Produto</h1>
-                <p class="price" id="modalPrice">Preço: </p>
-                <p id="modalDescription">Descrição: </p>
-                <button id="add-to-cart" onclick="addToCartFromModal()">Adicionar ao Carrinho</button>
-                <button class="buy-button" onclick="buyNow()">Comprar Agora</button>
-            </div>
-        </div>
-    </div>
+    <script>
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const cartItemsList = document.getElementById('cart-items');
+        const cartMessage = document.getElementById('cart-message');
+        const clearCartButton = document.getElementById('clear-cart');
+        const totalDisplay = document.getElementById('total');
+        const continueShoppingButton = document.getElementById('continue-shopping');
 
-    <script src="{{ url_for('static', filename='js/carrinho.js') }}"></script>
+        function displayCart() {
+            cartItemsList.innerHTML = '';
+            if (cart.length === 0) {
+                cartMessage.classList.add('empty');
+                cartMessage.textContent = 'O carrinho está vazio.';
+                clearCartButton.style.display = 'none';
+                totalDisplay.textContent = '';
+            } else {
+                cartMessage.classList.remove('empty');
+                cartMessage.textContent = `Você tem ${cart.length} itens no carrinho.`;
+                clearCartButton.style.display = 'block';
+
+                let total = 0;
+                cart.forEach((item, index) => {
+                    total += item.preco; // Use 'preco' para somar corretamente
+                    const li = document.createElement('li');
+                    li.classList.add('cart-item');
+                    li.innerHTML = `
+                        <img src="${item.imagem}" alt="${item.nome}">
+                        <div>
+                            <h2>${item.nome}</h2>
+                            <p>R$ ${item.preco.toFixed(2)}</p>
+                        </div>
+                        <button class="remove-button" onclick="removeFromCart(${index})">Remover</button>
+                    `;
+                    cartItemsList.appendChild(li);
+                });
+                totalDisplay.textContent = `Total: R$ ${total.toFixed(2)}`;
+            }
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            displayCart();
+        }
+
+        function clearCart() {
+            cart = [];
+            localStorage.removeItem('cart');
+            displayCart();
+        }
+
+        clearCartButton.addEventListener('click', clearCart);
+        continueShoppingButton.addEventListener('click', function() {
+    window.location.href = '/pagamento'; // Redireciona para a página de pagamento
+});
+
+
+        // Exibe o carrinho ao carregar a página
+        document.addEventListener('DOMContentLoaded', displayCart);
+    </script>
 </body>
 </html>
