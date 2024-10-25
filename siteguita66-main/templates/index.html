@@ -16,23 +16,26 @@
             <a href="{{ url_for('products') }}" data-aos="fade-right">Loja</a>
             <a href="{{ url_for('contact') }}" data-aos="fade-right">Contato</a>
     
-
-            
+            <!-- Verifica se o usuário está logado -->
             {% if usuario != 'Visitante' %}
                 <h1>Bem-vindo, {{ usuario }}!</h1>
                 <a href="{{ url_for('logout') }}" class="nav-button" data-aos="fade-left">Logout</a>
             {% else %}
                 <h1>Bem-vindo, Visitante!</h1>
-                <a href="{{ url_for('login') }}" class="nav-button" data-aos="fade-left">Minha Conta</a>
+                <a href="{{ url_for('login') }}" class="nav-button" data-aos="fade-left">Entrar</a>
                 <a href="{{ url_for('criarconta') }}" class="nav-button" data-aos="fade-left">Criar Conta</a>
             {% endif %}
-            <a href="{{ url_for('adicionarProduto') }}"  class="nav-button" data-aos="fade-left">Adicionar Produto</a>
-            <a href="{{ url_for('listaprodutos') }}"  class="nav-button" data-aos="fade-left">Produtos</a>
-
+    
+            <!-- Verifica se o usuário é administrador -->
+            {% if session['is_admin'] %}
+                <a href="{{ url_for('add_product') }}" class="nav-button" data-aos="fade-left">Adicionar Produto</a>
+                <a href="{{ url_for('listaprodutos') }}" class="nav-button" data-aos="fade-left">lista de  produtos</a>
+            {% endif %}
+    
             <a href="{{ url_for('guitarforme') }}" class="nav-button" data-aos="fade-left">Sua Guitarra ideal</a>
         </nav>
     </header>
-
+    
     <!-- Seção para Carrossel de Imagens -->
     <section id="carousel" class="slider" data-aos="fade-up">
         <div class="slider-content">
@@ -129,39 +132,17 @@
     </section>
     
     <section class="full-width-image">
-        <img src="{{ url_for('static', filename='img/EMBAIXOwar.png') }}" alt="Faixa de Guitarras" />
+        <img src="{{ url_for('static', filename='img/EMBAIXOwarlock.png') }}" alt="Faixa de Guitarras" />
     </section>
-
-    <!-- Rodapé -->
-    <footer data-aos="fade-up">
-        <div class="footer-container">
-            <div class="footer-info">
-                <h3>Sobre Nós</h3>
-                <p>Descubra sua Paixão pela Música! Na Power Chords, acreditamos que cada guitarra conta uma história...</p>
-            </div>
-            <div class="footer-contact">
-                <h3>Contato</h3>
-                <p>Email: <a href="mailto:contato@notasdoces.com">powerchords@gmail.com</a></p>
-                <p>Telefone: (54) 98765-4321</p>
-                <p>Endereço: Rua das Notas, 123 - Rio Grande do Sul, RS</p>
-            </div>
-            <div class="footer-social">
-                <h3>Redes Sociais</h3>
-                <a href="https://www.instagram.com/notasdoces.com" target="_blank" class="social-icon">
-                    <img src="{{ url_for('static', filename='img/icons8-instagram-velho-50.png') }}" alt="Instagram" />
-                </a>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 Loja de Guitarras. Todos os direitos reservados.</p>
-        </div>
+    
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2023 Loja de Guitarras. Todos os direitos reservados.</p>
     </footer>
 
-    <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
-        AOS.init(); // Inicializa o AOS
+        AOS.init();
     </script>
-    <script src="script.js"></script>
 </body>
 </html>

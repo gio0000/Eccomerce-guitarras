@@ -63,17 +63,29 @@
                 <label for="email">Email:</label>
                 <input type="email" id="email" required>
             </div>
+            <h2>Endereço</h2>
             <div class="form-group">
-                <label for="card-number">Número do Cartão:</label>
-                <input type="text" id="card-number" required>
+                <label for="cep">CEP:</label>
+                <input type="text" id="cep" name="cep" placeholder="Digite seu CEP" maxlength="9" required oninput="formatCEP(this)">
+                <small>Formato: 12345-678</small>
             </div>
-            <div class="form-group">
-                <label for="expiration-date">Data de Validade:</label>
-                <input type="text" id="expiration-date" placeholder="MM/AA" required>
-            </div>
-            <div class="form-group">
-                <label for="cvv">CVV:</label>
-                <input type="number" id="cvv" required>
+            <h2>Escolha sua Forma de Pagamento</h2>
+
+            <div class="payment-methods">
+                <label class="payment-option">
+                    <input type="radio" name="payment" value="dinheiro"> Dinheiro
+                </label>
+            
+                <label class="payment-option">
+                    <input type="radio" name="payment" value="pix"> PIX
+                </label>
+            
+                <label class="payment-option">
+                    <input type="radio" name="payment" value="cartao_credito"> Cartão de Crédito
+                </label>
+                <label class="payment-option">
+                    <input type="radio" name="payment" value="boleto"> Boleto
+                </label>
             </div>
             <button type="submit">Finalizar Compra</button>
         </form>
@@ -85,6 +97,15 @@
             alert("Compra finalizada com sucesso!");
             // Aqui você pode adicionar lógica para processar o pagamento
         });
+        function formatCEP(input) {
+            // Remove tudo que não é número
+            let value = input.value.replace(/\D/g, '');
+            // Aplica a formatação: 12345-678
+            if (value.length > 5) {
+                value = value.replace(/(\d{5})(\d{3})/, '$1-$2');
+            }
+            input.value = value;
+        }
     </script>
 </body>
 </html>

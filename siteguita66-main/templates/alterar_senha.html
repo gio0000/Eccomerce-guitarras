@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Alterar Senha</title>
+    <style>
+        body {
+            background-color: #000; /* Fundo preto */
+            color: #00BFFF; /* Azul neon */
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            color: #1E90FF; /* Azul neon */
+            margin-bottom: 20px;
+        }
+
+        form {
+            background-color: rgba(0, 0, 0, 0.8); /* Fundo da caixa */
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 191, 255, 0.5); /* Sombra azul neon */
+            width: 300px;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #fff; /* Texto branco */
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #1E90FF; /* Borda azul neon */
+            border-radius: 5px;
+            background: #222; /* Fundo dos inputs */
+            color: #fff; /* Texto branco */
+            margin-bottom: 15px;
+        }
+
+        input:focus {
+            border-color: #00BFFF; /* Borda azul neon no foco */
+            box-shadow: 0 0 5px rgba(0, 191, 255, 0.5); /* Sombra azul neon no foco */
+        }
+
+        button {
+            background-color: #1E90FF; /* Botão azul neon */
+            border: none;
+            color: #fff; /* Texto branco */
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #00BFFF; /* Azul neon no hover */
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        li {
+            color: #ff0000; /* Cor de erro */
+        }
+    </style>
+</head>
+<body>
+    <h1>Alterar Senha</h1>
+    
+    <form method="POST">
+        <label for="email">Email:</label>
+        <input type="email" name="email" required>
+
+        <label for="senha_atual">Senha Atual:</label>
+        <input type="password" name="senha_atual" required>
+
+        <label for="nova_senha">Nova Senha:</label>
+        <input type="password" name="nova_senha" required>
+
+        <label for="confirmar_nova_senha">Confirmar Nova Senha:</label>
+        <input type="password" name="confirmar_nova_senha" required>
+
+        <button type="submit">Alterar Senha</button>
+    </form>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul>
+            {% for category, message in messages %}
+                <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+</body>
+</html>

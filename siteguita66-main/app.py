@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash, ses
 import mysql.connector
 import os
 from werkzeug.utils import secure_filename
+from functools import wraps
 
 app = Flask(__name__)
 app.secret_key = 'projeto_giordana_secreto_web'
@@ -17,6 +18,19 @@ def conexao():
         database="eccomerce_db"  # Nome do banco de dados
     )
 
+# Decorator para verificar se o usuário é administrador
+def admin_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'usuario_id' not in session or session.get('role') != 'admin':
+            return redirect(url_for('unauthorized'))  # Redireciona para uma página de acesso negado
+        return f(*args, **kwargs)
+    return decorated_function
+
+# Rota para página de acesso negado
+@app.route('/unauthorized')
+def unauthorized():
+    return "Você não tem permissão para acessar esta página.", 403
 
 # Função para adicionar item ao carrinho
 def adicionar_ao_carrinho(produto_id):
@@ -80,19 +94,18 @@ def limpar_carrinho():
     session.pop('carrinho', None)
     flash('Carrinho limpo.', 'success')
     return redirect(url_for('carrinho'))
- 
 
 @app.route('/pagamento')
 def pagamento():
     return render_template('pagamento.html')
-
 
 def get_usuario():
     return session.get('usuario_nome', 'Visitante')
 
 @app.route('/')
 def index():
-    return render_template('index.html', usuario=get_usuario())
+    usuario = session.get('usuario_nome', 'Visitante')
+    return render_template('index.html', usuario=usuario)
 
 @app.route('/criarconta')
 def criarconta():
@@ -126,6 +139,7 @@ def products():
     return render_template('products.html', produtos=produtos)
 
 @app.route('/listaprodutos', methods=['GET'])
+@admin_required
 def listaprodutos():
     try:
         # Conectar ao banco de dados
@@ -146,6 +160,7 @@ def listaprodutos():
     return render_template('produtos.html', produtos=produtos)
 
 @app.route('/edit_product/<int:product_id>', methods=['GET', 'POST'])
+@admin_required
 def edit_product(product_id):
     db = conexao()
     cursor = db.cursor(dictionary=True)
@@ -161,7 +176,7 @@ def edit_product(product_id):
         # Se não houver uma nova imagem, não sobrescreva a imagem existente
         if product_image and product_image.filename:
             # Certifique-se de que o diretório de upload existe
-            if not os.path.exists(app.config['UPLOAD_FOLDER']):
+            if not os.path.exists(app.config['UPLOAD_FOLDER']): 
                 os.makedirs(app.config['UPLOAD_FOLDER'])
 
             # Salva a nova imagem
@@ -176,8 +191,7 @@ def edit_product(product_id):
             image_url = existing_product['imagem']
 
         # Atualiza o produto no banco de dados
-        cursor.execute("""
-            UPDATE produtos 
+        cursor.execute("""UPDATE produtos 
             SET nome = %s, descricao = %s, preco = %s, imagem = %s 
             WHERE id = %s
         """, (name, description, price, image_url, product_id))
@@ -200,27 +214,23 @@ def edit_product(product_id):
 def guitarforme():
     return render_template('guitarforme.html')
 
-
-
-
 @app.route('/contact')
 def contact():
     return render_template('contact.html')
 
 @app.route('/addproduto')
+@admin_required
 def adicionarProduto():
     return render_template('adicionar.html')
-
-
 
 @app.route('/minhaconta')
 def minhaconta():
     return render_template('minhaconta.html')
 
-
-
 @app.route('/produto/<int:produto_id>', methods=['GET'])
+
 def produto(produto_id):
+
     try:
         db = conexao()
         cursor = db.cursor(dictionary=True)
@@ -239,92 +249,115 @@ def produto(produto_id):
 
     return render_template('produto.html', produto=produto)
 
-@app.route('/add_product', methods=['POST'])
+@app.route('/add_product', methods=['GET', 'POST'])
+@admin_required
 def add_product():
     if request.method == 'POST':
         product_name = request.form['productName']
         product_description = request.form['productDescription']
         product_description_details = request.form['productDescriptionDetails']
-        product_price = float(request.form['productPrice'])
+        product_price = request.form['productPrice']
         product_image = request.files['productImage']
 
-        # Certifique-se de que o diretório de upload existe
-        if not os.path.exists(app.config['UPLOAD_FOLDER']):
-            os.makedirs(app.config['UPLOAD_FOLDER'])
+        # Salvando a imagem do produto
+        filename = secure_filename(product_image.filename)
+        image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        product_image.save(image_path)
 
-        # Salva a imagem
-        image_url = None
-        if product_image:
-            filename = secure_filename(product_image.filename)
-            image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            product_image.save(image_path)  # Salva a imagem
-            image_url = filename  # Armazena apenas o nome do arquivo
+        # Inserindo o produto no banco de dados
+        db = conexao()
+        cursor = db.cursor()
+        cursor.execute("""
+            INSERT INTO produtos (nome, descricao, descricao_detalhada, preco, imagem) 
+            VALUES (%s, %s, %s, %s, %s)
+        """, (product_name, product_description, product_description_details, product_price, filename))
+        db.commit()
 
-        # Inserir o produto no banco de dados
-        try:
-            db = conexao()
-            cursor = db.cursor()
+        cursor.close()
+        db.close()
 
-            sql = "INSERT INTO produtos (nome, descricao, descricao_detalhada, preco, imagem) VALUES (%s, %s, %s, %s, %s)"
-            val = (product_name, product_description, product_description_details, product_price, image_url)
-            cursor.execute(sql, val)
-            db.commit()
-
-        except mysql.connector.Error as err:
-            db.rollback()
-            return jsonify({'error': str(err)}), 500
-        
-        finally:
-            db.close()
-
-        return redirect(url_for('index'))
-    
-@app.route('/cadastrar', methods=['POST'])
-def cadastrar():
-    usuario = request.form['usuario']
-    email = request.form['email']
-    data_nascimento = request.form['data_nascimento']
-    senha = request.form['senha']
-    
-    db = conexao()
-    cursor = db.cursor()
-    sql = "INSERT INTO usuarios (usuario, email, data_nascimento, senha) VALUES (%s, %s, %s, %s)"
-    val = (usuario, email, data_nascimento, senha)
-    cursor.execute(sql, val)
-    db.commit()
-    cursor.close()
-    
-    return redirect(url_for('index'))
+        flash('Produto adicionado com sucesso!', 'success')
+        return redirect(url_for('listaprodutos'))  # Redireciona para a lista de produtos após adicionar
+    return render_template('adicionar.html')  # Exibe o formulário para adicionar produto se for GET
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         email = request.form['email']
         senha = request.form['senha']
-        
-        db = conexao()
-        cursor = db.cursor(dictionary=True)
-        sql = "SELECT * FROM usuarios WHERE email = %s AND senha = %s"
-        val = (email, senha)
-        cursor.execute(sql, val)
-        usuario = cursor.fetchone()
-        
-        if usuario:
-            session['usuario_id'] = usuario['id']
-            session['usuario_nome'] = usuario['usuario']
-            flash('Login bem-sucedido!', 'success')
-            return redirect(url_for('index'))
-        else:
-            flash('Email ou senha incorretos.', 'danger')
-            return redirect(url_for('login'))
+
+        try:
+            db = conexao()
+            cursor = db.cursor(dictionary=True)
+            cursor.execute("SELECT * FROM usuarios WHERE email = %s AND senha = %s", (email, senha))
+            user = cursor.fetchone()
+
+            if user:
+                session['usuario_id'] = user['id']
+                session['usuario_nome'] = user.get('nome', 'Cliente')
+                session['role'] = user.get('role', 'user')
+
+                # Verifica se o usuário é um administrador
+                if session['role'] == 'admin':
+                    session['usuario_nome'] = 'Administrador'  # Altera para 'Administrador' se for admin
+                
+                session['is_admin'] = session['role'] == 'admin'
+                return redirect(url_for('index'))
+            else:
+                flash('Email ou senha incorretos.', 'danger')
+
+        except mysql.connector.Error as err:
+            flash(f"Erro de login: {str(err)}", 'danger')
+
+        finally:
+            cursor.close()
+            db.close()
 
     return render_template('login.html')
 
+
+@app.route('/alterar_senha', methods=['GET', 'POST'])
+def alterar_senha():
+    if request.method == 'POST':
+        email = request.form['email']
+        senha_atual = request.form['senha_atual']
+        nova_senha = request.form['nova_senha']
+        confirmar_nova_senha = request.form['confirmar_nova_senha']
+
+        if nova_senha != confirmar_nova_senha:
+            flash('As novas senhas não coincidem.', 'danger')
+            return redirect(url_for('alterar_senha'))
+
+        try:
+            db = conexao()
+            cursor = db.cursor(dictionary=True)
+            # Verificar se o email e a senha atual estão corretos
+            cursor.execute("SELECT * FROM usuarios WHERE email = %s AND senha = %s", (email, senha_atual))
+            user = cursor.fetchone()
+
+            if user:
+                # Atualizar a senha no banco de dados
+                cursor.execute("UPDATE usuarios SET senha = %s WHERE email = %s", (nova_senha, email))
+                db.commit()
+                flash('Senha alterada com sucesso!', 'success')
+            else:
+                flash('Email ou senha atual incorretos.', 'danger')
+
+        except mysql.connector.Error as err:
+            flash(f"Erro ao alterar a senha: {str(err)}", 'danger')
+
+        finally:
+            cursor.close()
+            db.close()
+
+    return render_template('alterar_senha.html')
+
+
+# Rota para logout
 @app.route('/logout')
 def logout():
-    session.pop('usuario_id', None)
-    session.pop('usuario_nome', None)
-    flash('Você foi desconectado.', 'success')
+    session.clear()
+    flash('Logout realizado com sucesso!', 'success')
     return redirect(url_for('index'))
 
 if __name__ == '__main__':
