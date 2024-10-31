@@ -218,6 +218,9 @@ def guitarforme():
 def contact():
     return render_template('contact.html')
 
+@app.route('/sobre')
+def sobre():
+    return render_template('sobre.html')
 
 
 @app.route('/addproduto')

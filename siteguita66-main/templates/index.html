@@ -15,6 +15,7 @@
             <a href="{{ url_for('index') }}" data-aos="fade-right">Início</a>
             <a href="{{ url_for('products') }}" data-aos="fade-right">Loja</a>
             <a href="{{ url_for('contact') }}" data-aos="fade-right">Contato</a>
+            <a href="{{ url_for('sobre') }}" data-aos="fade-right">Sobre nós</a>
     
             <!-- Verifica se o usuário está logado -->
             {% if usuario != 'Visitante' %}
@@ -146,6 +147,7 @@
                     <li><a href="{{ url_for('index') }}">Início</a></li>
                     <li><a href="{{ url_for('products') }}">Loja</a></li>
                     <li><a href="{{ url_for('contact') }}">Contato</a></li>
+                    <li><a href="{{ url_for('sobre') }}">sobre</a></li>
                 </ul>
             </div>
             <div class="footer-social">
