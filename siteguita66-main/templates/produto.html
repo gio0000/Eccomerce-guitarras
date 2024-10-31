@@ -6,11 +6,16 @@
     <title>{{ produto.nome }}</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
             background-color: #000000; /* Fundo preto */
             color: #00FFFF; /* Texto azul neon */
+            display: flex;
+            justify-content: center; /* Centraliza horizontalmente */
+            align-items: center; /* Centraliza verticalmente */
+            height: 100vh; /* Altura total da viewport */
+            overflow: hidden; /* Esconde scroll */
         }
 
         .produto-container {
@@ -20,6 +25,7 @@
             background-color: #111111; /* Fundo preto suave */
             border-radius: 8px;
             box-shadow: 0 0 15px rgba(0, 255, 255, 0.5); /* Sombra azul neon */
+            position: relative; /* Para posicionar o botão de fechar */
         }
 
         h1 {
@@ -27,6 +33,23 @@
             text-align: center;
             border-bottom: 2px solid #00FFFF;
             padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: transparent; /* Fundo transparente */
+            border: none;
+            color: #00FFFF; /* Cor do texto do botão */
+            font-size: 24px; /* Tamanho da fonte */
+            cursor: pointer;
+            transition: color 0.3s ease; /* Transição suave */
+        }
+
+        .close-button:hover {
+            color: #FF4500; /* Cor ao passar o mouse */
         }
 
         .produto {
@@ -36,8 +59,8 @@
         }
 
         .imagem {
-            width: 895px;
-            height: 895px;
+            width: 50%; /* Largura 50% */
+            height: auto;
             overflow: hidden;
             border: 1px solid #00FFFF; /* Borda azul neon */
             border-radius: 8px;
@@ -58,6 +81,7 @@
             padding: 20px;
             background-color: #111111; /* Fundo preto suave */
             border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3); /* Sombra suave */
         }
 
         .price {
@@ -100,8 +124,7 @@
             }
 
             .imagem {
-                width: 100%;
-                height: auto;
+                width: 100%; /* Largura total em telas menores */
                 margin-bottom: 20px;
             }
 
@@ -130,7 +153,7 @@
                 <button id="add-to-cart">Adicionar ao Carrinho</button>
                 
                 <h3>Formas de Pagamento</h3>
-                <p>Aceitamos cartões de crédito, débito e PayPal.</p>
+                <p>Aceitamos dinheiro,pix,cartão de crédito e boleto</p>
             </div>
         </div>
     </div>

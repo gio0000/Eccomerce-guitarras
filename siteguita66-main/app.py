@@ -218,6 +218,8 @@ def guitarforme():
 def contact():
     return render_template('contact.html')
 
+
+
 @app.route('/addproduto')
 @admin_required
 def adicionarProduto():

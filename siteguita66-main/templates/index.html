@@ -134,10 +134,27 @@
     <section class="full-width-image">
         <img src="{{ url_for('static', filename='img/EMBAIXOwarlock.png') }}" alt="Faixa de Guitarras" />
     </section>
-    
-    <!-- Footer -->
     <footer>
-        <p>&copy; 2023 Loja de Guitarras. Todos os direitos reservados.</p>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h2>Power Chords</h2>
+                <p>O seu lugar para encontrar a guitarra perfeita!</p>
+            </div>
+            <div class="footer-links">
+                <h3>Links Úteis</h3>
+                <ul>
+                    <li><a href="{{ url_for('index') }}">Início</a></li>
+                    <li><a href="{{ url_for('products') }}">Loja</a></li>
+                    <li><a href="{{ url_for('contact') }}">Contato</a></li>
+                </ul>
+            </div>
+            <div class="footer-social">
+                <h3>Siga-nos</h3>
+                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
