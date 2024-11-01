@@ -3,6 +3,9 @@ import mysql.connector
 import os
 from werkzeug.utils import secure_filename
 from functools import wraps
+from datetime import datetime
+
+
 
 app = Flask(__name__)
 app.secret_key = 'projeto_giordana_secreto_web'
@@ -95,9 +98,7 @@ def limpar_carrinho():
     flash('Carrinho limpo.', 'success')
     return redirect(url_for('carrinho'))
 
-@app.route('/pagamento')
-def pagamento():
-    return render_template('pagamento.html')
+
 
 def get_usuario():
     return session.get('usuario_nome', 'Visitante')
@@ -333,6 +334,64 @@ def add_product():
         flash('Produto adicionado com sucesso!', 'success')
         return redirect(url_for('listaprodutos'))  # Redireciona para a lista de produtos após adicionar
     return render_template('adicionar.html')  # Exibe o formulário para adicionar produto se for GET
+
+
+
+
+@app.route('/pagamento', methods=['GET', 'POST'])
+def pagamento():
+    total = request.args.get('total', type=float)  # Captura o total enviado na URL
+    if request.method == 'POST':
+        # Captura os dados do formulário
+        nome = request.form['name']
+        email = request.form['email']
+        telefone = request.form['telefone']
+        cep = request.form['cep']
+        endereco = request.form['endereco']
+        bairro = request.form['bairro']
+        numero = request.form['numero']
+        complemento = request.form['complemento']
+        cidade = request.form['cidade']
+        estado = request.form['estado']
+        forma_pagamento = request.form['payment']
+
+        try:
+            db = conexao()
+            cursor = db.cursor()
+
+            # Insere dados na tabela usuarios
+            cursor.execute("INSERT INTO usuarios (nome, email, telefone) VALUES (%s, %s, %s)", (nome, email, telefone))
+            usuario_id = cursor.lastrowid  # Captura o ID do usuário inserido
+
+            # Insere dados na tabela pedidos
+            data_pedido = datetime.now()  # Obtém a data atual para o campo data_pedido
+            cursor.execute(
+                "INSERT INTO pedidos (usuario_id, total, forma_pagamento, status, data_pedido) VALUES (%s, %s, %s, %s, %s)",
+                (usuario_id, total, forma_pagamento, 'pendente', data_pedido))
+            
+            pedido_id = cursor.lastrowid  # Captura o ID do pedido inserido
+
+            # Insere dados na tabela endereco
+            cursor.execute(
+                "INSERT INTO endereco (pedido_id, cep, rua, bairro, numero, complemento, cidade, estado) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
+                (pedido_id, cep, endereco, bairro, numero, complemento, cidade, estado))
+
+            db.commit()
+            flash('Pagamento realizado com sucesso!', 'success')
+        except mysql.connector.Error as err:
+            db.rollback()  # Desfaz as operações em caso de erro
+            flash(f'Ocorreu um erro ao processar o pagamento: {err}', 'danger')
+            print(f'Erro: {err}')  # Log do erro no console
+        finally:
+            cursor.close()
+            db.close()
+
+        return redirect(url_for('index'))  # Redireciona para a página inicial ou outra página
+
+    return render_template('pagamento.html', total=total)  # Passa o total para o template
+
+
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

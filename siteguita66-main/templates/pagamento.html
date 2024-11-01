@@ -55,6 +55,7 @@
     <h1>Página de Pagamento</h1>
     <div id="payment">
         <form id="payment-form" action="{{ url_for('pagamento') }}" method="POST">
+            <input type="hidden" name="total" value="{{ total }}"> <!-- Campo oculto para o total -->
             <div class="form-group">
                 <label for="name">Nome Completo:</label>
                 <input type="text" id="name" name="name" required>
