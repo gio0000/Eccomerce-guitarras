@@ -30,7 +30,7 @@
             margin-bottom: 5px;
             font-weight: bold;
         }
-        input[type="text"], input[type="number"], input[type="email"] {
+        input[type="text"], input[type="number"], input[type="email"], select {
             width: 100%;
             padding: 10px;
             border: 1px solid #ccc;
@@ -54,14 +54,14 @@
 <body>
     <h1>Página de Pagamento</h1>
     <div id="payment">
-        <form id="payment-form">
+        <form id="payment-form" action="{{ url_for('pagamento') }}" method="POST">
             <div class="form-group">
                 <label for="name">Nome Completo:</label>
-                <input type="text" id="name" required>
+                <input type="text" id="name" name="name" required>
             </div>
             <div class="form-group">
                 <label for="email">Email:</label>
-                <input type="email" id="email" required>
+                <input type="email" id="email" name="email" required>
             </div>
             <h2>Endereço</h2>
             <div class="form-group">
@@ -129,16 +129,16 @@
             <h2>Escolha sua Forma de Pagamento</h2>
             <div class="payment-methods">
                 <label class="payment-option">
-                    <input type="radio" name="payment" value="dinheiro"> Dinheiro
+                    <input type="radio" name="payment" value="dinheiro" required> Dinheiro
                 </label>
                 <label class="payment-option">
-                    <input type="radio" name="payment" value="pix"> PIX
+                    <input type="radio" name="payment" value="pix" required> PIX
                 </label>
                 <label class="payment-option">
-                    <input type="radio" name="payment" value="cartao_credito"> Cartão de Crédito
+                    <input type="radio" name="payment" value="cartao_credito" required> Cartão de Crédito
                 </label>
                 <label class="payment-option">
-                    <input type="radio" name="payment" value="boleto"> Boleto
+                    <input type="radio" name="payment" value="boleto" required> Boleto
                 </label>
             </div>
             <button type="submit">Finalizar Compra</button>
@@ -146,16 +146,8 @@
     </div>
 
     <script>
-        document.getElementById('payment-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            alert("Compra finalizada com sucesso!");
-            // Aqui você pode adicionar lógica para processar o pagamento
-        });
-
         function formatCEP(input) {
-            // Remove tudo que não é número
             let value = input.value.replace(/\D/g, '');
-            // Aplica a formatação: 12345-678
             if (value.length > 5) {
                 value = value.replace(/(\d{5})(\d{3})/, '$1-$2');
             }
@@ -163,9 +155,7 @@
         }
 
         function formatTelefone(input) {
-            // Remove tudo que não é número
             let value = input.value.replace(/\D/g, '');
-            // Aplica a formatação: (XX) XXXXX-XXXX ou (XX) XXXXX-XXXX XXXX
             if (value.length > 10) {
                 value = value.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
             } else if (value.length > 5) {
@@ -177,7 +167,7 @@
         }
 
         document.getElementById('cep').addEventListener('blur', function() {
-            var cep = this.value.replace(/\D/g, ''); // Remove caracteres não numéricos
+            var cep = this.value.replace(/\D/g, '');
             if (cep.length === 8) {
                 fetch(`https://viacep.com.br/ws/${cep}/json/`)
                     .then(response => response.json())

@@ -223,10 +223,59 @@ def sobre():
     return render_template('sobre.html')
 
 
+
+
+
 @app.route('/addproduto')
 @admin_required
 def adicionarProduto():
     return render_template('adicionar.html')
+
+
+
+
+
+
+
+@app.route('/remove_product', methods=['POST'])
+@admin_required
+def remove_product():
+    product_id = request.form.get('productId')  # Obtém o ID do produto do formulário
+
+    # Conectando ao banco de dados
+    conn = conexao()
+    cursor = conn.cursor()
+
+    # Verificar e remover o produto da tabela 'produtos'
+    cursor.execute("SELECT id FROM produtos WHERE id = %s", (product_id,))
+    produto = cursor.fetchone()
+
+    if produto:
+        cursor.execute("DELETE FROM produtos WHERE id = %s", (product_id,))
+        conn.commit()
+        flash("Produto removido com sucesso!", "success")
+    else:
+        flash("Produto não encontrado.", "error")
+
+    # Fechar conexão
+    cursor.close()
+    conn.close()
+
+    return redirect(url_for('index.html'))
+
+@app.route('/remove_product_form')
+@admin_required
+def remove_product_form():
+    return render_template('deletar.html')  # Renderiza o formulário de remoção
+
+
+
+
+
+
+
+
+
 
 @app.route('/minhaconta')
 def minhaconta():

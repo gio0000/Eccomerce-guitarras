@@ -112,6 +112,13 @@
         <button type="submit">Salvar</button>
     </form>
     
+    
+    <!-- Botão de deletar produto -->
+    <form method="POST" action="{{ url_for('remove_product') }}" style="margin-top: 20px;">
+        <input type="hidden" name="productId" value="{{ product.id }}"> <!-- ID do produto para exclusão -->
+        <button type="submit" style="background-color: #FF0000; color: #FFFFFF;">Deletar Produto</button>
+    </form>
+    
     <a href="{{ url_for('listaprodutos') }}">Voltar</a>
 </body>
 </html>
