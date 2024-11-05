@@ -1,0 +1,57 @@
+<div class="quiz-container">
+    <h1>Quiz: Descubra Seu Tipo de Guitarra</h1>
+
+    <!-- Pergunta 1 -->
+    <div class="question">
+        <p>Qual estilo musical você prefere?</p>
+        <input type="radio" name="q1" value="Les Paul"> Rock <br>
+        <input type="radio" name="q1" value="Stratocaster"> Blues <br>
+        <input type="radio" name="q1" value="Flying V"> Metal <br>
+    </div>
+
+    <!-- Pergunta 2 -->
+    <div class="question">
+        <p>Qual tipo de som você prefere?</p>
+        <input type="radio" name="q2" value="Les Paul"> Encorpado e grave <br>
+        <input type="radio" name="q2" value="Stratocaster"> Agudo e cristalino <br>
+        <input type="radio" name="q2" value="Flying V"> Agressivo e poderoso <br>
+    </div>
+
+    <!-- Pergunta 3 -->
+    <div class="question">
+        <p>Qual aparência você prefere?</p>
+        <input type="radio" name="q3" value="Les Paul"> Clássico <br>
+        <input type="radio" name="q3" value="Stratocaster"> Simples e elegante <br>
+        <input type="radio" name="q3" value="Flying V"> Moderno e agressivo <br>
+    </div>
+
+    <!-- Botão de Finalizar -->
+    <button onclick="calcularResultado()">Descubra o seu tipo de guitarra</button>
+
+    <!-- Resultado -->
+    <h2 id="resultado"></h2>
+</div>
+
+<script>
+function calcularResultado() {
+    const respostas = { 'Les Paul': 0, 'Stratocaster': 0, 'Flying V': 0 };
+
+    // Coleta as respostas e incrementa a pontuação de cada tipo de guitarra
+    const q1 = document.querySelector('input[name="q1"]:checked');
+    const q2 = document.querySelector('input[name="q2"]:checked');
+    const q3 = document.querySelector('input[name="q3"]:checked');
+
+    if (q1) respostas[q1.value]++;
+    if (q2) respostas[q2.value]++;
+    if (q3) respostas[q3.value]++;
+
+    // Encontra o tipo de guitarra com maior pontuação
+    const guitarraEscolhida = Object.keys(respostas).reduce((a, b) => respostas[a] > respostas[b] ? a : b);
+    
+    // Exibe o resultado
+    document.getElementById("resultado").innerText = `Seu tipo de guitarra é: ${guitarraEscolhida}`;
+}
+</script>
+
+</body>
+</html>
