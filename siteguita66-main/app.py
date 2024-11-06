@@ -7,6 +7,8 @@ from datetime import datetime
 
 
 
+
+
 app = Flask(__name__)
 app.secret_key = 'projeto_giordana_secreto_web'
 UPLOAD_FOLDER = 'static/uploads/'
@@ -108,9 +110,37 @@ def index():
     usuario = session.get('usuario_nome', 'Visitante')
     return render_template('index.html', usuario=usuario)
 
-@app.route('/criarconta')
+
+@app.route('/criarconta', methods=['GET', 'POST'])
 def criarconta():
-    return render_template('criarconta.html')
+    if request.method == 'POST':
+        # Coletando dados do formulário
+        usuario = request.form['usuario']
+        email = request.form['email']
+        senha = request.form['senha']
+        data_nascimento = request.form['data_nascimento']
+        try:
+            # Inserindo dados no banco de dados
+            db = conexao()
+            cursor = db.cursor()
+            cursor.execute("INSERT INTO usuarios (usuario, email, senha, data_nascimento) VALUES (%s, %s, %s, %s)", (usuario, email, senha, data_nascimento))
+            db.commit()
+            flash('Usuário criado com sucesso!', 'success')
+            return redirect(url_for('login'))  # Redireciona para o login após cadastro
+        except mysql.connector.Error as err:
+            flash(f"Erro ao cadastrar: {err}", 'danger')
+            db.rollback()
+        finally:
+            cursor.close()
+            db.close()
+    return render_template('criarconta.html')  # Exibe o formulário se for um GET
+
+
+
+
+
+
+
 
 # Rota para exibir os produtos e aplicar o filtro de marca
 @app.route('/products', methods=['GET'])
@@ -338,14 +368,14 @@ def add_product():
 
 
 
+
 @app.route('/pagamento', methods=['GET', 'POST'])
 def pagamento():
-    total = request.args.get('total', type=float)  # Captura o total enviado na URL
     if request.method == 'POST':
-        # Captura os dados do formulário
+        # Capturando os dados do formulário
         nome = request.form['name']
         email = request.form['email']
-        telefone = request.form['telefone']
+        rua = request.form['rua']
         cep = request.form['cep']
         endereco = request.form['endereco']
         bairro = request.form['bairro']
@@ -353,42 +383,81 @@ def pagamento():
         complemento = request.form['complemento']
         cidade = request.form['cidade']
         estado = request.form['estado']
+        telefone = request.form['telefone']
         forma_pagamento = request.form['payment']
+        total = request.form['total']
+    
+
+        # Pegando o ID do usuário logado da sessão
+        usuario_id = session.get('usuario_id')
+
+        # Obtendo a conexão
+        db = conexao()
+        cursor = db.cursor()  # Agora isso deve funcionar corretamente
 
         try:
-            db = conexao()
-            cursor = db.cursor()
+            # Inserindo os dados na tabela pagamentos
+            cursor.execute(""" 
+                INSERT INTO pagamentos (usuario_id, total, nome, email, cep, endereco, bairro, numero, complemento, cidade, estado, telefone, forma_pagamento,rua) 
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            """, (usuario_id, total, nome, email, cep, endereco, bairro, numero, complemento, cidade, estado, telefone, forma_pagamento, rua))
 
-            # Insere dados na tabela usuarios
-            cursor.execute("INSERT INTO usuarios (nome, email, telefone) VALUES (%s, %s, %s)", (nome, email, telefone))
-            usuario_id = cursor.lastrowid  # Captura o ID do usuário inserido
-
-            # Insere dados na tabela pedidos
-            data_pedido = datetime.now()  # Obtém a data atual para o campo data_pedido
-            cursor.execute(
-                "INSERT INTO pedidos (usuario_id, total, forma_pagamento, status, data_pedido) VALUES (%s, %s, %s, %s, %s)",
-                (usuario_id, total, forma_pagamento, 'pendente', data_pedido))
-            
-            pedido_id = cursor.lastrowid  # Captura o ID do pedido inserido
-
-            # Insere dados na tabela endereco
-            cursor.execute(
-                "INSERT INTO endereco (pedido_id, cep, rua, bairro, numero, complemento, cidade, estado) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
-                (pedido_id, cep, endereco, bairro, numero, complemento, cidade, estado))
-
+            # Confirma a transação
             db.commit()
-            flash('Pagamento realizado com sucesso!', 'success')
+
+            flash('Pagamento realizado com sucesso!', 'success')  # Notificação de sucesso
         except mysql.connector.Error as err:
-            db.rollback()  # Desfaz as operações em caso de erro
-            flash(f'Ocorreu um erro ao processar o pagamento: {err}', 'danger')
-            print(f'Erro: {err}')  # Log do erro no console
+            print(f"Erro: {err}")
+            db.rollback()  # Reverta a transação em caso de erro
+            flash('Erro ao processar o pagamento. Tente novamente.', 'danger')  # Notificação de erro
         finally:
-            cursor.close()
-            db.close()
+            if cursor:  # Certifique-se de que o cursor foi criado
+                cursor.close()
+            if db:  # Feche a conexão se não for reutilizar
+                db.close()
 
-        return redirect(url_for('index'))  # Redireciona para a página inicial ou outra página
+        # Redireciona para a página de confirmação ou sucesso
+        return redirect(url_for('index'))
 
-    return render_template('pagamento.html', total=total)  # Passa o total para o template
+    return render_template('pagamento.html')  # Retorna o formulário de pagamento se GET
+
+
+
+
+
+
+
+@app.route('/seus-pedidos')
+def seus_pedidos():
+    # Supondo que você tenha um método para obter o ID do usuário logado
+    usuario_id = session.get('usuario_id')  # ou outro método de autenticação
+
+    if not usuario_id:
+        return redirect(url_for('index'))  # Redireciona se não estiver logado
+
+    db = conexao()
+    cursor = db.cursor(dictionary=True)
+    
+    # Consulta filtrando por ID do usuário
+    query = "SELECT * FROM pagamentos WHERE usuario_id = %s"
+    cursor.execute(query, (usuario_id,))
+    pedidos = cursor.fetchall()
+
+    cursor.close()
+    return render_template('seus_pedidos.html', pedidos=pedidos)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

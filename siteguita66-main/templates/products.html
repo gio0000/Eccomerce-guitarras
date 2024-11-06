@@ -45,26 +45,26 @@
         }
 
         .product-list {
-    display: flex;
-    flex-wrap: wrap; /* Permite que os cards envolvam para a próxima linha */
-    gap: 1rem; /* Espaço entre os cards */
-    justify-content: center; /* Centraliza os cards na linha */
-}
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
 
-.card {
-    background-color: #fff;
-    border-radius: 8px;
-    overflow: hidden;
-    width: calc(20% - 1rem); /* Define largura para 5 cards por linha */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 1rem;
-}
+        .card {
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            width: calc(20% - 1rem);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 1rem;
+        }
 
         .card img {
-            width: 100%; 
-            height: auto; 
+            width: 100%;
+            height: auto;
         }
 
         .card-details {
@@ -192,46 +192,76 @@
 
         /* Estilos do filtro */
         #filterForm {
-            margin: 20px 0; /* Espaçamento acima e abaixo do formulário */
-            text-align: center; /* Centraliza o formulário */
+            margin: 20px 0;
+            text-align: center;
         }
 
         #filterForm label {
-            color: #fff; /* Cor do texto do rótulo */
-            font-size: 1.2em; /* Tamanho da fonte do rótulo */
-            margin-right: 10px; /* Espaço entre o rótulo e o select */
+            color: #fff;
+            font-size: 1.2em;
+            margin-right: 10px;
         }
 
         #filterForm select {
-            padding: 10px; /* Espaçamento interno do select */
-            border-radius: 5px; /* Bordas arredondadas */
-            border: 1px solid #ccc; /* Borda do select */
-            background-color: #444; /* Cor de fundo do select */
-            color: #fff; /* Cor do texto do select */
-            font-size: 1em; /* Tamanho da fonte do select */
-            margin-right: 10px; /* Espaço entre o select e o botão */
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background-color: #444;
+            color: #fff;
+            font-size: 1em;
+            margin-right: 10px;
         }
 
         #filterForm button[type="submit"] {
-            padding: 10px 20px; /* Espaçamento interno do botão */
-            border: none; /* Remove a borda */
-            border-radius: 5px; /* Bordas arredondadas */
-            background-color: #00eeff; /* Cor de fundo do botão */
-            color: #000; /* Cor do texto do botão */
-            font-size: 1.2em; /* Tamanho da fonte do botão */
-            cursor: pointer; /* Muda o cursor para indicar que é clicável */
-            transition: background-color 0.3s; /* Transição suave */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #00eeff;
+            color: #000;
+            font-size: 1.2em;
+            cursor: pointer;
         }
 
         #filterForm button[type="submit"]:hover {
-            background-color: #164b69; /* Cor de fundo ao passar o mouse */
+            background-color: #164b69;
         }
+
         .card-container {
-        
             display: flex;
-    flex-wrap: wrap; /* Permite que os cards envolvam para a próxima linha */
-    gap: 1rem; /* Espaço entre os cards */
-    justify-content: center; /* Centraliza os cards na linha */
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        /* Responsividade para telas pequenas */
+        @media (max-width: 768px) {
+            .card {
+                width: calc(50% - 1rem); /* Exibe 2 cards por linha */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                width: 100%; /* Exibe 1 card por linha em telas muito pequenas */
+            }
+
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            nav a {
+                font-size: 0.9rem;
+                margin: 0 0.5rem;
+            }
+
+            #filterForm label, #filterForm select {
+                font-size: 1em;
+            }
+
+            #filterForm button[type="submit"] {
+                font-size: 1em;
+                padding: 8px 16px;
+            }
         }
     </style>
 </head>

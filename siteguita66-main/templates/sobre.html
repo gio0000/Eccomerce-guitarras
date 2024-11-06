@@ -5,19 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sobre a Power Chords</title>
     <style>
+        /* CSS incorporado */
+
+        * {
+            box-sizing: border-box; /* Inclui padding e border no cálculo da largura e altura */
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             background-color: #1a1a1a;
             color: #ffffff;
             margin: 0;
             padding: 0;
+            line-height: 1.6; /* Aumenta a legibilidade do texto */
         }
 
         header {
             background-color: #111;
             color: #00FFFF;
             text-align: center;
-            padding: 20px;
+            padding: 20px 0;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em; /* Tamanho do título */
+        }
+
+        nav {
+            margin-top: 10px;
         }
 
         nav a {
@@ -25,34 +41,44 @@
             margin: 0 15px;
             text-decoration: none;
             font-weight: bold;
+            transition: color 0.3s; /* Transição suave para hover */
+        }
+
+        nav a:hover {
+            color: #ff9800; /* Cor ao passar o mouse */
         }
 
         main {
             padding: 20px;
+            max-width: 800px; /* Largura máxima do conteúdo */
+            margin: auto; /* Centraliza o conteúdo */
         }
 
-        .story, .team, .vision {
-            margin-bottom: 20px;
-            padding: 15px;
+        section {
+            margin-bottom: 30px; /* Espaçamento entre seções */
+            padding: 20px;
             border: 1px solid #00FFFF;
             background-color: #222;
+            border-radius: 8px; /* Bordas arredondadas */
         }
 
-        h1, h2 {
+        h2 {
             color: #00FFFF;
+            font-size: 1.8em; /* Tamanho do subtítulo */
+            margin-bottom: 15px; /* Espaço abaixo do subtítulo */
         }
 
         footer {
             background-color: #111;
             color: #00FFFF;
             text-align: center;
-            padding: 10px;
+            padding: 10px 0;
             position: relative;
             bottom: 0;
             width: 100%;
         }
 
-        footer .footer-content {
+        .footer-content {
             margin: 10px 0;
         }
     </style>
@@ -70,9 +96,9 @@
     <main>
         <section class="story">
             <h2>Nossa História</h2>
-            <p>A Power Chords foi fundada em [ano de fundação] com o objetivo de oferecer guitarras de alta qualidade e uma experiência única para músicos de todos os níveis. Desde o início, nossa paixão pela música e pelas guitarras tem sido o coração da nossa loja.</p>
+            <p>A Power Chords foi fundada em 2024 com o objetivo de oferecer guitarras de alta qualidade e uma experiência única para músicos de todos os níveis. Desde o início, nossa paixão pela música e pelas guitarras tem sido o coração da nossa loja.</p>
 
-            <p>Começamos como uma pequena loja local, atendendo a músicos da região e rapidamente ganhamos a reputação de oferecer os melhores produtos e atendimento ao cliente. Com o tempo, expandimos nosso catálogo para incluir uma variedade de guitarras, acessórios e equipamentos para todos os gostos.</p>
+            <p>Começamos como uma pequena loja local, atendendo a músicos da região e rapidamente ganhamos a reputação de oferecer os melhores produtos e atendimento ao cliente. Com o tempo, expandimos nosso catálogo para incluir uma variedade de guitarras para todos os gostos.</p>
 
             <p>Nossa missão é não apenas vender guitarras, mas também apoiar a comunidade musical. Realizamos eventos, workshops e colaborações com músicos locais para promover o amor pela música e ajudar novos talentos a se desenvolverem.</p>
 

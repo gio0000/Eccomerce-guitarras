@@ -16,6 +16,7 @@
             <a href="{{ url_for('products') }}" data-aos="fade-right">Loja</a>
             <a href="{{ url_for('contact') }}" data-aos="fade-right">Contato</a>
             <a href="{{ url_for('sobre') }}" data-aos="fade-right">Sobre nós</a>
+            <a href="{{ url_for('seus_pedidos') }}" data-aos="fade-right">meus pedidos</a>
             
             
     
@@ -36,6 +37,7 @@
             {% endif %}
     
             <a href="{{ url_for('guitarforme') }}" class="nav-button" data-aos="fade-left">Sua Guitarra ideal</a>
+            
         </nav>
     </header>
     
@@ -51,7 +53,7 @@
 
             <div class="slide-box">
                 <div class="slides">
-                    <img src="{{ url_for('static', filename='img/poweazul.png') }}" alt="SLIDE1">
+                    <img src="{{ url_for('static', filename='img/icon.png') }}" alt="SLIDE1">
                     <img src="{{ url_for('static', filename='img/power chord (2).png') }}" alt="SLIDE2">
                     <img src="{{ url_for('static', filename='img/power chord (3).png') }}" alt="SLIDE3">
                     <img src="{{ url_for('static', filename='img/suamelhorescolha (1).png') }}" alt="SLIDE4">
@@ -115,27 +117,27 @@
 
     <!-- Seções de Imagem em Tela Cheia -->
     <section class="full-width-image" data-aos="fade-up">
-        <img src="{{ url_for('static', filename='img/EMBAIXOsg2.png') }}" alt="Guitarras" />
+        <img src="{{ url_for('static', filename='img/EMBAIXOsg2.png') }}" alt="" />
     </section>
     
     <section class="full-width-image">
-        <img src="{{ url_for('static', filename='img/EMBAIXOlespaul (1).png') }}" alt="Guitarras" />
+        <img src="{{ url_for('static', filename='img/EMBAIXOlespaul (1).png') }}" alt="" />
     </section>
     
     <section class="full-width-image">
-        <img src="{{ url_for('static', filename='img/EMBAIXOv.png') }}" alt="Faixa de Guitarras" />
+        <img src="{{ url_for('static', filename='img/EMBAIXOv.png') }}" alt="" />
     </section>
     
     <section class="full-width-image">
-        <img src="{{ url_for('static', filename='img/EMBAIXOstrato (1).png') }}" alt="Faixa de Guitarras" />
+        <img src="{{ url_for('static', filename='img/EMBAIXOstrato (1).png') }}" alt=""/>
     </section>
     
     <section class="full-width-image">
-        <img src="{{ url_for('static', filename='img/EMBAIXOsgg.png') }}" alt="Faixa de Guitarras" />
+        <img src="{{ url_for('static', filename='img/EMBAIXOsgg.png') }}" alt="" />
     </section>
     
     <section class="full-width-image">
-        <img src="{{ url_for('static', filename='img/EMBAIXOwarlock.png') }}" alt="Faixa de Guitarras" />
+        <img src="{{ url_for('static', filename='img/EMBAIXOwarlock.png') }}" alt="" />
     </section>
     <footer>
         <div class="footer-content">
@@ -143,27 +145,38 @@
                 <h2>Power Chords</h2>
                 <p>O seu lugar para encontrar a guitarra perfeita!</p>
             </div>
+            
             <div class="footer-links">
                 <h3>Links Úteis</h3>
                 <ul>
                     <li><a href="{{ url_for('index') }}">Início</a></li>
                     <li><a href="{{ url_for('products') }}">Loja</a></li>
                     <li><a href="{{ url_for('contact') }}">Contato</a></li>
-                    <li><a href="{{ url_for('sobre') }}">sobre</a></li>
+                    <li><a href="{{ url_for('sobre') }}">Sobre</a></li>
                 </ul>
             </div>
+            
             <div class="footer-social">
                 <h3>Siga-nos</h3>
                 <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
                 <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
                 <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
             </div>
+    
+            <div class="footer-contact">
+                <h3>Contato</h3>
+                <p>Telefone: (54) 9952-7071</p>
+                <p>
+                    <a href="https://wa.me/555499527071" target="_blank" rel="noopener noreferrer">
+                        Entre em contato pelo WhatsApp
+                    </a>
+                </p>
+            </div>
         </div>
     </footer>
-
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
         AOS.init();
     </script>
-</body>
-</html>
+    

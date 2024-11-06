@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seus Pedidos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .pedidos-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .pedido {
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .label {
+            font-weight: bold;
+            color: #007ACC; /* Azul escuro */
+        }
+        hr {
+            border: none;
+            border-top: 1px solid #ccc;
+            margin: 15px 0;
+        }
+        p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Seus Pedidos</h1>
+    {% if pedidos %}
+        <div class="pedidos-container">
+            {% for pedido in pedidos %}
+            <div class="pedido">
+                <p><span class="label">Nome:</span> {{ pedido.nome }}</p>
+                <p><span class="label">Email:</span> {{ pedido.email }}</p>
+                <p><span class="label">Rua:</span> {{ pedido.rua }}</p>
+                <p><span class="label">CEP:</span> {{ pedido.cep }}</p>
+                <p><span class="label">Endereço:</span> {{ pedido.endereco }}</p>
+                <p><span class="label">Bairro:</span> {{ pedido.bairro }}</p>
+                <p><span class="label">Número:</span> {{ pedido.numero }}</p>
+                <p><span class="label">Complemento:</span> {{ pedido.complemento }}</p>
+                <p><span class="label">Cidade:</span> {{ pedido.cidade }}</p>
+                <p><span class="label">Estado:</span> {{ pedido.estado }}</p>
+                <p><span class="label">Telefone:</span> {{ pedido.telefone }}</p>
+                <p><span class="label">Forma de Pagamento:</span> {{ pedido.forma_pagamento }}</p>
+                <p><span class="label">Status:</span> {{ pedido.status }}</p>
+                <p><span class="label">Data do Pedido:</span> {{ pedido.data_pagamento }}</p>
+                <hr>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p style="text-align: center; color: #777;">Você ainda não fez nenhum pedido.</p>
+    {% endif %}
+</body>
+</html>

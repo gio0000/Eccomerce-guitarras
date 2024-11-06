@@ -5,60 +5,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carrinho de Compras</title>
     <style>
+        /* CSS com tema preto e azul */
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f8ff;
+            background-color: #1a1a1a; /* Fundo escuro */
+            color: #ffffff; /* Texto branco */
             padding: 20px;
         }
+        
         h1 {
             text-align: center;
-            color: #333;
+            color: #00FFFF; /* Azul claro */
+            margin-bottom: 20px;
         }
+        
         #cart {
             max-width: 800px;
             margin: 0 auto;
-            background-color: white;
+            background-color: #222; /* Fundo do carrinho */
             border-radius: 8px;
             padding: 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Sombra mais forte */
         }
-        .empty { color: gray; text-align: center; }
+        
+        .empty { 
+            color: gray; 
+            text-align: center; 
+        }
+
         .cart-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #00FFFF; /* Azul claro */
             padding: 10px 0;
         }
+        
         .cart-item img {
             width: 50px;
             height: auto;
             margin-right: 15px;
         }
+        
         .cart-item h2 {
             margin: 0;
             font-size: 16px;
+            color: #00FFFF; /* Azul claro */
         }
+        
         .cart-item p {
             margin: 0;
-            color: #666;
+            color: #66ccff; /* Azul mais claro */
         }
+
         .remove-button {
-            background-color: red;
+            background-color: #ff3b3b; /* Vermelho */
             color: white;
             border: none;
             padding: 5px 10px;
             cursor: pointer;
             border-radius: 5px;
+            transition: background-color 0.3s ease; /* Transição suave */
         }
+
+        .remove-button:hover {
+            background-color: #cc0000; /* Vermelho escuro ao passar o mouse */
+        }
+
         #total {
             font-size: 18px;
             margin-top: 20px;
             font-weight: bold;
             text-align: right;
+            color: #00FFFF; /* Azul claro */
         }
+
         #clear-cart {
-            background-color: #f44336;
+            background-color: #ff3b3b; /* Vermelho */
             color: white;
             padding: 10px;
             border: none;
@@ -67,9 +90,15 @@
             width: 100%;
             margin-top: 10px;
             display: none;
+            transition: background-color 0.3s ease;
         }
+
+        #clear-cart:hover {
+            background-color: #cc0000; /* Vermelho escuro ao passar o mouse */
+        }
+
         #continue-shopping {
-            background-color: #00FFFF; /* Azul neon para continuar a compra */
+            background-color: #00FFFF; /* Azul claro */
             color: black;
             padding: 10px;
             border: none;
@@ -79,8 +108,9 @@
             margin-top: 10px;
             transition: background-color 0.3s ease;
         }
+
         #continue-shopping:hover {
-            background-color: #00CED1; /* Azul neon mais claro no hover */
+            background-color: #00CED1; /* Azul mais escuro ao passar o mouse */
         }
     </style>
 </head>
@@ -116,7 +146,7 @@
 
                 let total = 0;
                 cart.forEach((item, index) => {
-                    total += item.preco; // Use 'preco' para somar corretamente
+                    total += item.preco;
                     const li = document.createElement('li');
                     li.classList.add('cart-item');
                     li.innerHTML = `
@@ -130,9 +160,12 @@
                     cartItemsList.appendChild(li);
                 });
                 totalDisplay.textContent = `Total: R$ ${total.toFixed(2)}`;
+                localStorage.setItem('total', total.toFixed(2)); // Salva o total no localStorage
             }
         }
 
+
+        
         function removeFromCart(index) {
             cart.splice(index, 1);
             localStorage.setItem('cart', JSON.stringify(cart));
@@ -147,11 +180,9 @@
 
         clearCartButton.addEventListener('click', clearCart);
         continueShoppingButton.addEventListener('click', function() {
-    window.location.href = '/pagamento'; // Redireciona para a página de pagamento
-});
+            window.location.href = '/pagamento';
+        });
 
-
-        // Exibe o carrinho ao carregar a página
         document.addEventListener('DOMContentLoaded', displayCart);
     </script>
 </body>
