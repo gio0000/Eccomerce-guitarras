@@ -65,11 +65,19 @@ def adicionar_ao_carrinho(produto_id):
         db.close()
 
 # Rota para exibir o carrinho
-@app.route('/carrinho')
+@app.route('/carrinho', methods=['GET', 'POST'])
 def carrinho():
-    carrinho = session.get('carrinho', [])
-    total = sum(item['preco'] for item in carrinho)  # Calcular o valor total do carrinho
-    return render_template('carrinho.html', carrinho=carrinho, total=total)
+    if request.method == 'POST':
+        # Verifica se o usuário está logado
+        if 'usuario_id' not in session:
+            flash('Você precisa estar logado para finalizar a compra.', 'warning')
+            return redirect(url_for('criar_conta'))  # Redireciona para a página de criação de conta
+
+        # Se o usuário está logado, redireciona para a página de pagamento
+        return redirect(url_for('pagamento'))
+    
+    # Renderiza o carrinho normalmente
+    return render_template('carrinho.html')
 
 # Rota para adicionar produtos ao carrinho
 @app.route('/adicionar_carrinho/<int:produto_id>')
@@ -292,7 +300,7 @@ def remove_product():
     cursor.close()
     conn.close()
 
-    return redirect(url_for('index.html'))
+    return redirect(url_for('index'))
 
 @app.route('/remove_product_form')
 @admin_required
@@ -371,6 +379,9 @@ def add_product():
 
 @app.route('/pagamento', methods=['GET', 'POST'])
 def pagamento():
+    if 'usuario_id' not in session:
+        flash('Por favor, faça login ou crie uma conta para continuar.', 'warning')
+        return redirect(url_for('criarconta'))
     if request.method == 'POST':
         # Capturando os dados do formulário
         nome = request.form['name']
@@ -420,10 +431,6 @@ def pagamento():
         return redirect(url_for('index'))
 
     return render_template('pagamento.html')  # Retorna o formulário de pagamento se GET
-
-
-
-
 
 
 
