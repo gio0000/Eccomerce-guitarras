@@ -546,7 +546,7 @@ def alterar_senha():
 @app.route('/logout')
 def logout():
     session.clear()
-    flash('Logout realizado com sucesso!', 'success')
+    
     return redirect(url_for('index'))
 
 if __name__ == '__main__':
