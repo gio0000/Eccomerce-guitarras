@@ -1,0 +1,33 @@
+
+
+AVISO: Aviso de Direitos Autorais e Uso do Site
+
+Este site foi desenvolvido exclusivamente para fins educacionais e pessoais. O conteúdo e o design foram criados como parte de um projeto individual e não devem ser copiados, reproduzidos, distribuídos ou utilizados de qualquer forma sem a minha autorização prévia.
+
+Qualquer tentativa de utilizar ou modificar este site sem permissão está proibida. Agradeço pela compreensão e respeito aos direitos autorais e ao trabalho desenvolvido.
+
+
+
+
+
+Este projeto consiste no desenvolvimento de um site eccomerce de vendas de guitarras  utilizando as principais tecnologias da web:
+
+
+HTML, CSS e JavaScript. O site será dinâmico e responsivo, com o objetivo de apresentar, O site inclui banco de dados msql.
+
+front-end e a organização de conteúdo visual na web juntamente com um sistema backend em python
+
+Páginas do Site
+O site contará com as seguintes páginas:
+Entrar
+Criar Conta
+Sua guitarra ideal
+Início
+loja
+contato
+sobre nos
+meus pedidos
+carrinho
+pagamento
+Para o adm da pagina: lista produtos e adicionar produtos 
+
